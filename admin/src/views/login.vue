@@ -247,7 +247,7 @@
     // import 'bootstrap/dist/css/bootstrap.min.css'
     // import 'jquery/dist/jquery.min.js'
     // import 'bootstrap/dist/js/bootstrap.min.js'
-    $('body').attr('class', 'login-layout light-login');
+
     export default {
         name: 'App',
         // components: {
@@ -257,6 +257,10 @@
             login(){
                 this.$router.push("/admin");
             }
+        },
+        mounted() {
+            $('body').removeClass('no-skin');
+            $('body').attr('class', 'login-layout light-login');
         }
 
 
