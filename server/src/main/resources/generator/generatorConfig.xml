@@ -44,7 +44,11 @@
                             type="XMLMAPPER"/>
 
 
-        <table tableName="test" domainObjectName="Test"/>
+<!--        <table tableName="test" domainObjectName="Test"/>-->
+
+<!--        原来的那表已经生成过 就注释掉-->
+
+        <table tableName="chapter" domainObjectName="Chapter"/>
 
 
     </context>
