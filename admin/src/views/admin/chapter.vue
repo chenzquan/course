@@ -976,17 +976,36 @@
 </template>
 
 <script>
+
+
     export default {
         name: "chapter",
-        // mounted() {
-        //     $('body').removeClass('login-layout light-login');
-        //     $('body').attr('class', 'no-skin');
-        // },
-
 
         mounted() {
-            this.$parent.activeSidebar("business-chapter-sidebar");
+            // this.$parent.activeSidebar("business-chapter-sidebar");
+            // list(){
+            //     let _this = this;
+            //     _this.$ajax.get('http:127.0.0.1:9002/business/chapter/list').then((response)=>{
+            //         console.log("jieguo",response);
+            //     });
+            //     // http.get()
+            // }
+
+            let _this = this;
+            _this.list();
+
+        },
+
+        methods:{
+            list(){
+                let _this = this;
+                _this.$ajax.get('http://127.0.0.1:9002/business/admin/chapter/list').then((response)=>{
+                    console.log("jieguo",response);
+                });
+            }
         }
+
+
 
     }
 </script>
