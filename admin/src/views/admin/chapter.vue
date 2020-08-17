@@ -982,6 +982,12 @@
         //     $('body').removeClass('login-layout light-login');
         //     $('body').attr('class', 'no-skin');
         // },
+
+
+        mounted() {
+            this.$parent.activeSidebar("business-chapter-sidebar");
+        }
+
     }
 </script>
 

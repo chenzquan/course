@@ -358,11 +358,11 @@
                 </div><!-- /.sidebar-shortcuts -->
 
                 <ul class="nav nav-list">
-                    <li class="">
-                        <a href="index.html">
+                    <li class="" id="welcome-sidebar">
+                        <router-link to="/admin/welcome">
                             <i class="menu-icon fa fa-tachometer"></i>
                             <span class="menu-text"> 欢迎 </span>
-                        </a>
+                        </router-link>
 
                         <b class="arrow"></b>
                     </li>
@@ -385,66 +385,10 @@
                                     <i class="menu-icon fa fa-caret-right"></i>
 
                                     用户管理
-<!--                                    <b class="arrow fa fa-angle-down"></b>-->
+
                                 </a>
 
-<!--                                <b class="arrow"></b>-->
 
-<!--                                <ul class="submenu">-->
-<!--                                    <li class="">-->
-<!--                                        <a href="top-menu.html">-->
-<!--                                            <i class="menu-icon fa fa-caret-right"></i>-->
-<!--                                       -->
-<!--                                        </a>-->
-
-<!--                                        <b class="arrow"></b>-->
-<!--                                    </li>-->
-
-<!--&lt;!&ndash;                                    <li class="">&ndash;&gt;-->
-<!--&lt;!&ndash;                                        <a href="two-menu-1.html">&ndash;&gt;-->
-<!--&lt;!&ndash;                                            <i class="menu-icon fa fa-caret-right"></i>&ndash;&gt;-->
-<!--&lt;!&ndash;                                            Two Menus 1&ndash;&gt;-->
-<!--&lt;!&ndash;                                        </a>&ndash;&gt;-->
-
-<!--&lt;!&ndash;                                        <b class="arrow"></b>&ndash;&gt;-->
-<!--&lt;!&ndash;                                    </li>&ndash;&gt;-->
-
-<!--&lt;!&ndash;                                    <li class="">&ndash;&gt;-->
-<!--&lt;!&ndash;                                        <a href="two-menu-2.html">&ndash;&gt;-->
-<!--&lt;!&ndash;                                            <i class="menu-icon fa fa-caret-right"></i>&ndash;&gt;-->
-<!--&lt;!&ndash;                                            Two Menus 2&ndash;&gt;-->
-<!--&lt;!&ndash;                                        </a>&ndash;&gt;-->
-
-<!--&lt;!&ndash;                                        <b class="arrow"></b>&ndash;&gt;-->
-<!--&lt;!&ndash;                                    </li>&ndash;&gt;-->
-
-<!--&lt;!&ndash;                                    <li class="">&ndash;&gt;-->
-<!--&lt;!&ndash;                                        <a href="mobile-menu-1.html">&ndash;&gt;-->
-<!--&lt;!&ndash;                                            <i class="menu-icon fa fa-caret-right"></i>&ndash;&gt;-->
-<!--&lt;!&ndash;                                            Default Mobile Menu&ndash;&gt;-->
-<!--&lt;!&ndash;                                        </a>&ndash;&gt;-->
-
-<!--&lt;!&ndash;                                        <b class="arrow"></b>&ndash;&gt;-->
-<!--&lt;!&ndash;                                    </li>&ndash;&gt;-->
-
-<!--&lt;!&ndash;                                    <li class="">&ndash;&gt;-->
-<!--&lt;!&ndash;                                        <a href="mobile-menu-2.html">&ndash;&gt;-->
-<!--&lt;!&ndash;                                            <i class="menu-icon fa fa-caret-right"></i>&ndash;&gt;-->
-<!--&lt;!&ndash;                                            Mobile Menu 2&ndash;&gt;-->
-<!--&lt;!&ndash;                                        </a>&ndash;&gt;-->
-
-<!--&lt;!&ndash;                                        <b class="arrow"></b>&ndash;&gt;-->
-<!--&lt;!&ndash;                                    </li>&ndash;&gt;-->
-
-<!--&lt;!&ndash;                                    <li class="">&ndash;&gt;-->
-<!--&lt;!&ndash;                                        <a href="mobile-menu-3.html">&ndash;&gt;-->
-<!--&lt;!&ndash;                                            <i class="menu-icon fa fa-caret-right"></i>&ndash;&gt;-->
-<!--&lt;!&ndash;                                            Mobile Menu 3&ndash;&gt;-->
-<!--&lt;!&ndash;                                        </a>&ndash;&gt;-->
-
-<!--&lt;!&ndash;                                        <b class="arrow"></b>&ndash;&gt;-->
-<!--&lt;!&ndash;                                    </li>&ndash;&gt;-->
-<!--                                </ul>-->
                             </li>
 
                             <li class="">
@@ -473,13 +417,13 @@
                         <b class="arrow"></b>
 
                         <ul class="submenu">
-                            <li class="">
-                                <a href="#" class="dropdown-toggle">
+                            <li class="active" id="business-chapter-sidebar">
+                                <router-link to="/admin/business/chapter" class="dropdown-toggle">
                                     <i class="menu-icon fa fa-caret-right"></i>
 
                                     大章管理
-                                    <!--                                    <b class="arrow fa fa-angle-down"></b>-->
-                                </a>
+
+                                </router-link>
 
 
                             </li>
@@ -1023,7 +967,24 @@
         methods:{
             login(){
                 this.$router.push("/admin");
+            },
+
+            activeSidebar(id){
+                $("#" + id).siblings().removeClass("active");
+                $("#" + id).siblings().find("li").removeClass("active");
+                $("#" + id).addClass("active");
+
+
+                let parentLi = $("#" + id).parent("li");
+                if(parentLi){
+                    parentLi.siblings().removeClass("open active");
+                    parentLi.addClass("open active");
+                }
+
             }
+
+
+
         },
 
     }

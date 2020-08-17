@@ -4,7 +4,17 @@
 
 <script>
     export default {
-        name: "welcome"
+        name: "welcome",
+
+
+        methods:{
+
+        },
+
+        mounted() {
+            this.$parent.activeSidebar("welcome-sidebar");
+        }
+
     }
 </script>
 
