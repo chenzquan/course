@@ -1,4 +1,12 @@
 <template>
+<div>
+    <p>
+        <button @click="list(1)" class="btn btn-white btn-default btn-round">
+            <i class="ace-icon fa fa-refresh"></i>
+           刷新
+        </button>
+    </p>
+
     <table id="simple-table" class="table  table-bordered table-hover">
         <thead>
         <tr>
@@ -85,13 +93,21 @@
         </tbody>
     </table>
 
+    <Pagination ref="pagination" :list="list"></Pagination>
+
+</div>
+
 </template>
 
 <script>
 
+    import Pagination from '../../components/pagination.vue';
 
     export default {
         name: "chapter",
+        components:{
+          Pagination
+        },
 
         data(){
             return {
@@ -110,17 +126,21 @@
             // }
 
 
-            _this.list();
+            _this.list(1);
 
         },
 
 
         methods:{
-            list(){
+            list(page){
                 let _this = this;
-                _this.$ajax.get('http://127.0.0.1:9000/business/admin/chapter/list').then((response)=>{
+                _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/list',{
+                    page:page,
+                    size:_this.$refs.pagination.size
+                }).then((response)=>{
                     console.log("jieguo",response);
-                    _this.chapters = response.data;
+                    _this.chapters = response.data.list;
+                    _this.$refs.pagination.render(page,response.data.total);
 
                 });
             }
