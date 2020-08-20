@@ -192,10 +192,12 @@
         methods: {
             list(page) {
                 let _this = this;
+                Loading.show();
                 _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/list', {
                     page: page,
                     size: _this.$refs.pagination.size
                 }).then((response) => {
+                    Loading.hide();
                     console.log("jieguo", response);
                     let res = response.data;
                     _this.chapters = res.content.list;
@@ -229,7 +231,9 @@
                     cancelButtonText: '取消'
                 }).then((result) => {
                     if (result.value) {
+                        Loading.show();
                         _this.$ajax.delete('http://127.0.0.1:9000/business/admin/chapter/delete/' + id).then((response) => {
+                            Loading.hide();
                             let res = response.data;
                             console.log("jieguo add", response);
                             if(res.success){
