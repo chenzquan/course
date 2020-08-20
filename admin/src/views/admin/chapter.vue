@@ -220,44 +220,55 @@
 
             deleteData(id){
                 let _this = this;
+                Confirm.show("删除大章后不可恢复，确认删除？",function () {
+                    Loading.show();
+                    _this.$ajax.delete('http://127.0.0.1:9000/business/admin/chapter/delete/' + id).then((response) => {
+                        Loading.hide();
+                        let res = response.data;
+                        console.log("jieguo add", response);
+                        if(res.success){
+                            // $(".modal").modal("hide");
+                            _this.list(1);
+                            Toast.success("删除成功!")
+                        }
+                        // _this.chapters = response.data.list;
+                        // _this.$refs.pagination.render(page, response.data.total);
 
-
-                Swal.fire({
-                    title: '确认删除?',
-                    text: '删除后不可恢复，确认删除',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: '确认',
-                    cancelButtonText: '取消'
-                }).then((result) => {
-                    if (result.value) {
-                        Loading.show();
-                        _this.$ajax.delete('http://127.0.0.1:9000/business/admin/chapter/delete/' + id).then((response) => {
-                            Loading.hide();
-                            let res = response.data;
-                            console.log("jieguo add", response);
-                            if(res.success){
-                                // $(".modal").modal("hide");
-                                _this.list(1);
-                                toast.success("删除成功!")
-                            }
-                            // _this.chapters = response.data.list;
-                            // _this.$refs.pagination.render(page, response.data.total);
-
-                        });
-
-
-                        // For more information about handling dismissals please visit
-                        // https://sweetalert2.github.io/#handling-dismissals
-                    }
-                    // else if (result.dismiss === Swal.DismissReason.cancel) {
-                    //     Swal.fire(
-                    //         'Cancelled',
-                    //         'Your imaginary file is safe :)',
-                    //         'error'
-                    //     )
-                    // }
+                    });
                 });
+
+                // Swal.fire({
+                //     title: '确认删除?',
+                //     text: '删除后不可恢复，确认删除',
+                //     icon: 'warning',
+                //     showCancelButton: true,
+                //     confirmButtonText: '确认',
+                //     cancelButtonText: '取消'
+                // }).then((result) => {
+                //     if (result.value) {
+                //         Loading.show();
+                //         _this.$ajax.delete('http://127.0.0.1:9000/business/admin/chapter/delete/' + id).then((response) => {
+                //             Loading.hide();
+                //             let res = response.data;
+                //             console.log("jieguo add", response);
+                //             if(res.success){
+                //                 // $(".modal").modal("hide");
+                //                 _this.list(1);
+                //                 Toast.success("删除成功!")
+                //             }
+                //             // _this.chapters = response.data.list;
+                //             // _this.$refs.pagination.render(page, response.data.total);
+                //
+                //         });
+                //     }
+                //     // else if (result.dismiss === Swal.DismissReason.cancel) {
+                //     //     Swal.fire(
+                //     //         'Cancelled',
+                //     //         'Your imaginary file is safe :)',
+                //     //         'error'
+                //     //     )
+                //     // }
+                // });
 
 
             },
@@ -272,7 +283,7 @@
                     if(res.success){
                         $(".modal").modal("hide");
                         _this.list(1);
-                        toast.success("保存成功!");
+                        Toast.success("保存成功!");
                     }
                     // _this.chapters = response.data.list;
                     // _this.$refs.pagination.render(page, response.data.total);
