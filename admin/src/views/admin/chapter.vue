@@ -158,7 +158,7 @@
 <script>
 
     import Pagination from '../../components/pagination.vue';
-    import Swal from 'sweetalert2';
+    // import Swal from 'sweetalert2';
 
     export default {
         name: "chapter",
@@ -235,11 +235,7 @@
                             if(res.success){
                                 // $(".modal").modal("hide");
                                 _this.list(1);
-                                Swal.fire(
-                                    '删除成功！',
-                                    '删除成功！',
-                                    'success'
-                                )
+                                toast.success("删除成功!")
                             }
                             // _this.chapters = response.data.list;
                             // _this.$refs.pagination.render(page, response.data.total);
@@ -272,6 +268,7 @@
                     if(res.success){
                         $(".modal").modal("hide");
                         _this.list(1);
+                        toast.success("保存成功!");
                     }
                     // _this.chapters = response.data.list;
                     // _this.$refs.pagination.render(page, response.data.total);
