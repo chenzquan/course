@@ -275,6 +275,14 @@
 
             save(){
                 let _this = this;
+
+                // if (!Validator.request(_this.chapter.name,"名称")
+                //     || !Validator.request(_this.chapter.courseId,"课程ID")
+                //     || !Validator.length(_this.chapter.courseId,"课程ID",1,8)){
+                //     return;
+                // }
+
+
                 _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/save',
                     _this.chapter
                 ).then((response) => {
@@ -284,6 +292,8 @@
                         $(".modal").modal("hide");
                         _this.list(1);
                         Toast.success("保存成功!");
+                    }else{
+                        Toast.warning(res.message);
                     }
                     // _this.chapters = response.data.list;
                     // _this.$refs.pagination.render(page, response.data.total);
