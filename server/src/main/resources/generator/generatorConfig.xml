@@ -48,8 +48,9 @@
 
 <!--        原来的那表已经生成过 就注释掉-->
 
-        <table tableName="chapter" domainObjectName="Chapter"/>
+<!--        <table tableName="chapter" domainObjectName="Chapter"/>-->
 
+        <table tableName="section" domainObjectName="Section"/>
 
     </context>
 </generatorConfiguration>

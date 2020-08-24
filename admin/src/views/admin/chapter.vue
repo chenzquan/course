@@ -198,7 +198,7 @@
                     size: _this.$refs.pagination.size
                 }).then((response) => {
                     Loading.hide();
-                    console.log("jieguo", response);
+                    // console.log("jieguo", response);
                     let res = response.data;
                     _this.chapters = res.content.list;
                     _this.$refs.pagination.render(page, res.content.total);
