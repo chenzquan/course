@@ -26,6 +26,8 @@ public class ChapterController {
 
     private static final Logger LOG = LoggerFactory.getLogger(ChapterController.class);
 
+    public static final String BUSINESS_NAME = "大章";
+
 
     @PostMapping("/list")
     public ResponseDto list(@RequestBody PageDto pageDto){
