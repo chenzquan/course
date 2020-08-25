@@ -14,83 +14,84 @@
         <table id="simple-table" class="table  table-bordered table-hover">
             <thead>
             <tr>
-                <th>ID</th>
-                <th>名称</th>
-                <th>课程ID</th>
-                <th>操作</th>
+
+                <#list fieldList as field>
+                <th>${field.nameCn}</th>
+            </#list>
+
+            <th>操作</th>
 
 
-                <th></th>
+            <th></th>
             </tr>
             </thead>
 
             <tbody>
 
-            <tr v-for="chapter in chapters" :key="chapter.id">
+            <tr v-for="${domain} in ${domain}s" :key="${domain}.id">
+
+                <#list fieldList as field>
+                <td>{{${domain}.${field.nameHump}}}</td>
+            </#list>
 
 
-                <td>{{chapter.id}}</td>
-
-                <td>{{chapter.name}}</td>
-                <td>{{chapter.courseId}}</td>
-
-                <!--            <td>Feb 12</td>-->
+            <!--            <td>Feb 12</td>-->
 
 
-                <td>
-                    <div class="hidden-sm hidden-xs btn-group">
-<!--                        <button class="btn btn-xs btn-success">-->
-<!--                            <i class="ace-icon fa fa-check bigger-120"></i>-->
-<!--                        </button>-->
+            <td>
+                <div class="hidden-sm hidden-xs btn-group">
+                    <!--                        <button class="btn btn-xs btn-success">-->
+                    <!--                            <i class="ace-icon fa fa-check bigger-120"></i>-->
+                    <!--                        </button>-->
 
-                        <button class="btn btn-xs btn-info" @click="edit(chapter)">
-                            <i class="ace-icon fa fa-pencil bigger-120"></i>
+                    <button class="btn btn-xs btn-info" @click="edit(${domain})">
+                        <i class="ace-icon fa fa-pencil bigger-120"></i>
+                    </button>
+
+                    <button class="btn btn-xs btn-danger" @click="deleteData(${domain}.id)">
+                        <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                    </button>
+
+                    <!--                        <button class="btn btn-xs btn-warning">-->
+                    <!--                            <i class="ace-icon fa fa-flag bigger-120"></i>-->
+                    <!--                        </button>-->
+                </div>
+
+                <div class="hidden-md hidden-lg">
+                    <div class="inline pos-rel">
+                        <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown"
+                                data-position="auto">
+                            <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
                         </button>
 
-                        <button class="btn btn-xs btn-danger" @click="deleteData(chapter.id)">
-                            <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                        </button>
-
-<!--                        <button class="btn btn-xs btn-warning">-->
-<!--                            <i class="ace-icon fa fa-flag bigger-120"></i>-->
-<!--                        </button>-->
-                    </div>
-
-                    <div class="hidden-md hidden-lg">
-                        <div class="inline pos-rel">
-                            <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown"
-                                    data-position="auto">
-                                <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
-                            </button>
-
-                            <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-                                <li>
-                                    <a href="#" class="tooltip-info" data-rel="tooltip" title="View">
+                        <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+                            <li>
+                                <a href="#" class="tooltip-info" data-rel="tooltip" title="View">
                                                                     <span class="blue">
                                                                         <i class="ace-icon fa fa-search-plus bigger-120"></i>
                                                                     </span>
-                                    </a>
-                                </li>
+                                </a>
+                            </li>
 
-                                <li>
-                                    <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
+                            <li>
+                                <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
                                                                     <span class="green">
                                                                         <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
                                                                     </span>
-                                    </a>
-                                </li>
+                                </a>
+                            </li>
 
-                                <li>
-                                    <a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
+                            <li>
+                                <a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
                                                                     <span class="red">
                                                                         <i class="ace-icon fa fa-trash-o bigger-120"></i>
                                                                     </span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
-                </td>
+                </div>
+            </td>
             </tr>
 
             </tbody>
@@ -107,40 +108,18 @@
                     <div class="modal-body">
                         <!--                    <p>One fine body&hellip;</p>-->
                         <form class="form-horizontal">
-                            <div class="form-group">
-                                <label  class="col-sm-2 control-label">名称</label>
-                                <div class="col-sm-10">
-                                    <input v-model="chapter.name" class="form-control"  placeholder="名称">
-                                </div>
-                            </div>
 
+                            <#list fieldList as field>
                             <div class="form-group">
-                                <label  class="col-sm-2 control-label">课程ID</label>
+                                <label  class="col-sm-2 control-label">${field.nameCn}</label>
                                 <div class="col-sm-10">
-                                    <input v-model="chapter.courseId" class="form-control"  placeholder="课程ID">
+                                    <input v-model="${domain}.${field.nameHump}" class="form-control"  placeholder="${field.nameCn}">
                                 </div>
                             </div>
-<!--                            <div class="form-group">-->
-<!--                                <label for="inputPassword3" class="col-sm-2 control-label">Password</label>-->
-<!--                                <div class="col-sm-10">-->
-<!--                                    <input type="password" class="form-control" id="inputPassword3"-->
-<!--                                           placeholder="Password">-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="form-group">-->
-<!--                                <div class="col-sm-offset-2 col-sm-10">-->
-<!--                                    <div class="checkbox">-->
-<!--                                        <label>-->
-<!--                                            <input type="checkbox"> Remember me-->
-<!--                                        </label>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="form-group">-->
-<!--                                <div class="col-sm-offset-2 col-sm-10">-->
-<!--                                    <button type="submit" class="btn btn-default">Sign in</button>-->
-<!--                                </div>-->
-<!--                            </div>-->
+                        </#list>
+
+
+
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -161,23 +140,23 @@
     // import Swal from 'sweetalert2';
 
     export default {
-        name: "chapter",
+        name: "${domain}",
         components: {
             Pagination
         },
 
         data() {
             return {
-                chapters: [],
-                chapter:{}
+                ${domain}s: [],
+                ${domain}:{}
             }
         },
         mounted() {
             let _this = this;
-            _this.$parent.activeSidebar("business-chapter-sidebar");
+            _this.$parent.activeSidebar("${module}-${domain}-sidebar");
             // list(){
             //     let _this = this;
-            //     _this.$ajax.get('http:127.0.0.1:9002/business/chapter/list').then((response)=>{
+            //     _this.$ajax.get('http:127.0.0.1:9002/${module}/${domain}/list').then((response)=>{
             //         console.log("jieguo",response);
             //     });
             //     // http.get()
@@ -193,14 +172,14 @@
             list(page) {
                 let _this = this;
                 Loading.show();
-                _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/chapter/list', {
+                _this.$ajax.post(process.env.VUE_APP_SERVER + '/${module}/admin/${domain}/list', {
                     page: page,
                     size: _this.$refs.pagination.size
                 }).then((response) => {
                     Loading.hide();
                     // console.log("jieguo", response);
                     let res = response.data;
-                    _this.chapters = res.content.list;
+                    _this.${domain}s = res.content.list;
                     _this.$refs.pagination.render(page, res.content.total);
 
                 });
@@ -208,21 +187,21 @@
 
             add() {
                 let _this = this;// eslint-disable-line no-unused-vars
-                _this.chapter = {};
+                _this.${domain} = {};
                 $(".modal").modal("show");
             },
 
-            edit(chapter){
+            edit(${domain}){
                 let _this = this;
                 $(".modal").modal("show");
-                _this.chapter = $.extend({},chapter);
+                _this.${domain} = $.extend({},${domain});
             },
 
             deleteData(id){
                 let _this = this;
-                Confirm.show("删除大章后不可恢复，确认删除？",function () {
+                Confirm.show("删除${tableNameCn}后不可恢复，确认删除？",function () {
                     Loading.show();
-                    _this.$ajax.delete(process.env.VUE_APP_SERVER + '/business/admin/chapter/delete/' + id).then((response) => {
+                    _this.$ajax.delete(process.env.VUE_APP_SERVER + '/${module}/admin/${domain}/delete/' + id).then((response) => {
                         Loading.hide();
                         let res = response.data;
                         console.log("jieguo add", response);
@@ -231,7 +210,7 @@
                             _this.list(1);
                             Toast.success("删除成功!")
                         }
-                        // _this.chapters = response.data.list;
+                        // _this.${domain}s = response.data.list;
                         // _this.$refs.pagination.render(page, response.data.total);
 
                     });
@@ -247,7 +226,7 @@
                 // }).then((result) => {
                 //     if (result.value) {
                 //         Loading.show();
-                //         _this.$ajax.delete('http://127.0.0.1:9000/business/admin/chapter/delete/' + id).then((response) => {
+                //         _this.$ajax.delete('http://127.0.0.1:9000/${module}/admin/${domain}/delete/' + id).then((response) => {
                 //             Loading.hide();
                 //             let res = response.data;
                 //             console.log("jieguo add", response);
@@ -256,7 +235,7 @@
                 //                 _this.list(1);
                 //                 Toast.success("删除成功!")
                 //             }
-                //             // _this.chapters = response.data.list;
+                //             // _this.${domain}s = response.data.list;
                 //             // _this.$refs.pagination.render(page, response.data.total);
                 //
                 //         });
@@ -275,16 +254,16 @@
 
             save(){
                 let _this = this;
+                //保存校验
+                // if (!Validator.request(_this.${domain}.name,"名称")
+                //     || !Validator.request(_this.${domain}.courseId,"课程ID")
+                //     || !Validator.length(_this.${domain}.courseId,"课程ID",1,8)){
+                //     return;
+                // }
 
-                if (!Validator.request(_this.chapter.name,"名称")
-                    || !Validator.request(_this.chapter.courseId,"课程ID")
-                    || !Validator.length(_this.chapter.courseId,"课程ID",1,8)){
-                    return;
-                }
 
-
-                _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/chapter/save',
-                    _this.chapter
+                _this.$ajax.post(process.env.VUE_APP_SERVER + '/${module}/admin/${domain}/save',
+                    _this.${domain}
                 ).then((response) => {
                     let res = response.data;
                     console.log("jieguo add", response);
@@ -295,7 +274,7 @@
                     }else{
                         Toast.warning(res.message);
                     }
-                    // _this.chapters = response.data.list;
+                    // _this.${domain}s = response.data.list;
                     // _this.$refs.pagination.render(page, response.data.total);
 
                 });
