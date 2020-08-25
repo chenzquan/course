@@ -18,6 +18,9 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.Date;
+
+
 @Service
 public class SectionService {
 
@@ -28,6 +31,7 @@ public class SectionService {
 
         PageHelper.startPage(pageDto.getPage(),pageDto.getSize()); //对遇到第一个 sql 语句 进行分页
         SectionExample sectionExample = new SectionExample();
+        sectionExample.setOrderByClause("sort asc");
         List<Section> sectionList = sectionMapper.selectByExample(sectionExample);
 
         PageInfo<Section> pageInfo = new PageInfo<>(sectionList);
@@ -67,12 +71,19 @@ public class SectionService {
     }
 
     private void insert(Section section){
+
+        Date now = new Date();
+        section.setCreatedAt(now);
+        section.setUpdatedAt(now);
         section.setId(UuidUtil.getShortUuid());
         sectionMapper.insert(section);
     }
 
 
     private void update(Section section){
+        Date now = new Date();
+        section.setUpdatedAt(now);
+
         sectionMapper.updateByPrimaryKey(section);
     }
 
