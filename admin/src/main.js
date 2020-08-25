@@ -33,3 +33,5 @@ new Vue({
 }).$mount('#app');
 
 // export const http = Vue.http;
+
+console.log("环境：",process.env.NODE_ENV);
