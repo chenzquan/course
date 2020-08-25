@@ -320,6 +320,14 @@
 
             save(){
                 let _this = this;
+
+                if (1!=1
+                    || !Validator.request(_this.section.title,"标题")
+                   || !Validator.length(_this.section.title,"标题",1,50)
+                    || !Validator.length(_this.section.video,"视频",1,200)){
+                    return;
+                }
+
                 //保存校验
                 // if (!Validator.request(_this.section.name,"名称")
                 //     || !Validator.request(_this.section.courseId,"课程ID")
@@ -331,9 +339,8 @@
                 _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/section/save',
                     _this.section
                 ).then((response) => {
-                    console.log("jieguo add", response);
                     let res = response.data;
-
+                    console.log("jieguo add", response);
                     if(res.success){
                         $(".modal").modal("hide");
                         _this.list(1);

@@ -254,6 +254,19 @@
 
             save(){
                 let _this = this;
+
+                if (1!=1
+                <#list fieldList as field>
+                    <#if !field.nullAble>
+                   || !Validator.request(_this.${domain}.${field.nameHump},"${field.nameCn}")
+                    </#if>
+                    <#if (field.length > 0)>
+                   || !Validator.length(_this.${domain}.${field.nameHump},"${field.nameCn}",1,${field.length})
+                    </#if>
+                </#list>){
+                    return;
+                }
+
                 //保存校验
                 // if (!Validator.request(_this.${domain}.name,"名称")
                 //     || !Validator.request(_this.${domain}.courseId,"课程ID")
