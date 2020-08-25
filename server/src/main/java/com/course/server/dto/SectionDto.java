@@ -1,125 +1,170 @@
 package com.course.server.dto;
 
+
+
+
 import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class SectionDto {
-    private String id;
 
-    private String title;
+public class SectionDto{
 
-    private String courseId;
+        /**
+         *  ID
+         */
+        private String id;
 
-    private String chapterId;
 
-    private String video;
+        /**
+         *  标题
+         */
+        private String title;
 
-    private Integer time;
 
-    private String charge;
+        /**
+         *  课程|course.id
+         */
+        private String courseId;
 
-    private Integer sort;
 
-    private Date createdAt;
+        /**
+         *  大章|chapter.id
+         */
+        private String chapterId;
 
-    private Date updatedAt;
 
-    public String getId() {
-        return id;
-    }
+        /**
+         *  视频
+         */
+        private String video;
 
-    public void setId(String id) {
-        this.id = id;
-    }
 
-    public String getTitle() {
-        return title;
-    }
+        /**
+         *  时长|单位秒
+         */
+        private Integer time;
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
-    public String getCourseId() {
-        return courseId;
-    }
+        /**
+         *  收费|c 收费；F 免费
+         */
+        private String charge;
 
-    public void setCourseId(String courseId) {
-        this.courseId = courseId;
-    }
 
-    public String getChapterId() {
-        return chapterId;
-    }
+        /**
+         *  顺序
+         */
+        private Integer sort;
 
-    public void setChapterId(String chapterId) {
-        this.chapterId = chapterId;
-    }
 
-    public String getVideo() {
-        return video;
-    }
+        /**
+         *  创建时间
+         */
+        @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+        private Date createdAt;
 
-    public void setVideo(String video) {
-        this.video = video;
-    }
 
-    public Integer getTime() {
-        return time;
-    }
+        /**
+         *  修改时间
+         */
+        @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+        private Date updatedAt;
 
-    public void setTime(Integer time) {
-        this.time = time;
-    }
 
-    public String getCharge() {
-        return charge;
-    }
+        public String getId(){
+            return id;
+        }
 
-    public void setCharge(String charge) {
-        this.charge = charge;
-    }
+        public void setId(String id){
+            this.id = id;
+        }
+        public String getTitle(){
+            return title;
+        }
 
-    public Integer getSort() {
-        return sort;
-    }
+        public void setTitle(String title){
+            this.title = title;
+        }
+        public String getCourseId(){
+            return courseId;
+        }
 
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
+        public void setCourseId(String courseId){
+            this.courseId = courseId;
+        }
+        public String getChapterId(){
+            return chapterId;
+        }
 
-    public Date getCreatedAt() {
-        return createdAt;
-    }
+        public void setChapterId(String chapterId){
+            this.chapterId = chapterId;
+        }
+        public String getVideo(){
+            return video;
+        }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
+        public void setVideo(String video){
+            this.video = video;
+        }
+        public Integer getTime(){
+            return time;
+        }
 
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
+        public void setTime(Integer time){
+            this.time = time;
+        }
+        public String getCharge(){
+            return charge;
+        }
 
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+        public void setCharge(String charge){
+            this.charge = charge;
+        }
+        public Integer getSort(){
+            return sort;
+        }
+
+        public void setSort(Integer sort){
+            this.sort = sort;
+        }
+        public Date getCreatedAt(){
+            return createdAt;
+        }
+
+        public void setCreatedAt(Date createdAt){
+            this.createdAt = createdAt;
+        }
+        public Date getUpdatedAt(){
+            return updatedAt;
+        }
+
+        public void setUpdatedAt(Date updatedAt){
+            this.updatedAt = updatedAt;
+        }
+
+
 
     @Override
-    public String toString() {
+    public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", title=").append(title);
-        sb.append(", courseId=").append(courseId);
-        sb.append(", chapterId=").append(chapterId);
-        sb.append(", video=").append(video);
-        sb.append(", time=").append(time);
-        sb.append(", charge=").append(charge);
-        sb.append(", sort=").append(sort);
-        sb.append(", createdAt=").append(createdAt);
-        sb.append(", updatedAt=").append(updatedAt);
+            sb.append(", id=").append(id);
+            sb.append(", title=").append(title);
+            sb.append(", courseId=").append(courseId);
+            sb.append(", chapterId=").append(chapterId);
+            sb.append(", video=").append(video);
+            sb.append(", time=").append(time);
+            sb.append(", charge=").append(charge);
+            sb.append(", sort=").append(sort);
+            sb.append(", createdAt=").append(createdAt);
+            sb.append(", updatedAt=").append(updatedAt);
         sb.append("]");
         return sb.toString();
     }
 }
+
+
+
+
