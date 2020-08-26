@@ -28,6 +28,11 @@
             <artifactId>dom4j</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.course</groupId>
+            <artifactId>server</artifactId>
+        </dependency>
+
 
     </dependencies>
 

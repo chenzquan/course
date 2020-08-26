@@ -144,7 +144,7 @@
     // import Swal from 'sweetalert2';
 
     export default {
-        name: "${domain}",
+        name: "${module}-${domain}",
         components: {
             Pagination
         },

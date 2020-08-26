@@ -40,7 +40,7 @@
                 <td>{{section.video}}</td>
                 <td>{{section.time}}</td>
 <!--                <td>{{section.charge}}</td>-->
-                <td>{{CHARGE | optionKV(section.charge)}}</td>
+                <td>{{SECTION_CHARGE | optionKV(section.charge)}}</td>
                 <td>{{section.sort}}</td>
 
 
@@ -154,7 +154,7 @@
                                 <div class="col-sm-10">
 <!--                                    <input v-model="section.charge" class="form-control"  placeholder="收费">-->
                                     <select v-model="section.charge" class="form-control">
-                                        <option v-for="o in CHARGE" :value="o.key">{{o.value}}</option>
+                                        <option v-for="o in SECTION_CHARGE" :value="o.key">{{o.value}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -187,7 +187,7 @@
     // import Swal from 'sweetalert2';
 
     export default {
-        name: "section",
+        name: "business-section",
         components: {
             Pagination
         },
@@ -196,7 +196,7 @@
             return {
                 sections: [],
                 section:{},
-                CHARGE:CHARGE
+                SECTION_CHARGE:SECTION_CHARGE
             }
         },
         mounted() {
