@@ -14,11 +14,17 @@
         <table id="simple-table" class="table  table-bordered table-hover">
             <thead>
             <tr>
-                <#list fieldList as field>
-                    <#if field.nameHump!="createdAt" && field.nameHump!="updatedAt">
-             <th>${field.nameCn}</th>
-                    </#if>
-            </#list>
+                             <th>ID</th>
+             <th>名称</th>
+             <th>概述</th>
+             <th>时长</th>
+             <th>价格(元)</th>
+             <th>封面</th>
+             <th>级别</th>
+             <th>收费</th>
+             <th>状态</th>
+             <th>报名数</th>
+             <th>顺序</th>
 
             <th>操作</th>
 
@@ -29,12 +35,20 @@
 
             <tbody>
 
-            <tr v-for="${domain} in ${domain}s" :key="${domain}.id">
-                <#list fieldList as field>
-                      <#if field.nameHump!="createdAt" && field.nameHump!="updatedAt">
-                <td>{{${domain}.${field.nameHump}}}</td>
-                      </#if>
-            </#list>
+            <tr v-for="course in courses" :key="course.id">
+                <td>{{course.id}}</td>
+                <td>{{course.name}}</td>
+                <td>{{course.summary}}</td>
+                <td>{{course.time}}</td>
+                <td>{{course.price}}</td>
+                <td>{{course.image}}</td>
+                <td>{{COURSE_LEVEL | optionKV(course.level)}}</td>
+                <td>{{COURSE_CHARGE | optionKV(course.charge)}}</td>
+                <td>{{COURSE_STATUS | optionKV(course.status)}}</td>
+                <td>{{course.enroll}}</td>
+
+
+                <td>{{course.sort}}</td>
 
 
             <!--            <td>Feb 12</td>-->
@@ -46,11 +60,11 @@
                     <!--                            <i class="ace-icon fa fa-check bigger-120"></i>-->
                     <!--                        </button>-->
 
-                    <button class="btn btn-xs btn-info" @click="edit(${domain})">
+                    <button class="btn btn-xs btn-info" @click="edit(course)">
                         <i class="ace-icon fa fa-pencil bigger-120"></i>
                     </button>
 
-                    <button class="btn btn-xs btn-danger" @click="deleteData(${domain}.id)">
+                    <button class="btn btn-xs btn-danger" @click="deleteData(course.id)">
                         <i class="ace-icon fa fa-trash-o bigger-120"></i>
                     </button>
 
@@ -111,16 +125,75 @@
                         <!--                    <p>One fine body&hellip;</p>-->
                         <form class="form-horizontal">
 
-                            <#list fieldList as field>
-                                <#if field.name!="id" && field.nameHump!="createdAt" && field.nameHump!="updatedAt">
                             <div class="form-group">
-                                <label  class="col-sm-2 control-label">${field.nameCn}</label>
+                                <label  class="col-sm-2 control-label">名称</label>
                                 <div class="col-sm-10">
-                                    <input v-model="${domain}.${field.nameHump}" class="form-control"  placeholder="${field.nameCn}">
+                                    <input v-model="course.name" class="form-control"  placeholder="名称">
                                 </div>
                             </div>
-                                </#if>
-                        </#list>
+                            <div class="form-group">
+                                <label  class="col-sm-2 control-label">概述</label>
+                                <div class="col-sm-10">
+                                    <input v-model="course.summary" class="form-control"  placeholder="概述">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-2 control-label">时长</label>
+                                <div class="col-sm-10">
+                                    <input v-model="course.time" class="form-control"  placeholder="时长">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-2 control-label">价格(元)</label>
+                                <div class="col-sm-10">
+                                    <input v-model="course.price" class="form-control"  placeholder="价格(元)">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-2 control-label">封面</label>
+                                <div class="col-sm-10">
+                                    <input v-model="course.image" class="form-control"  placeholder="封面">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-2 control-label">级别</label>
+                                <div class="col-sm-10">
+<!--                                    <input v-model="course.level" class="form-control"  placeholder="级别">-->
+                                    <select v-model="course.level" class="form-control">
+                                        <option v-for="o in COURSE_LEVEL" :value="o.key">{{o.value}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-2 control-label">收费</label>
+                                <div class="col-sm-10">
+<!--                                    <input v-model="course.charge" class="form-control"  placeholder="收费">-->
+                                    <select v-model="course.charge" class="form-control">
+                                        <option v-for="o in COURSE_CHARGE" :value="o.key">{{o.value}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-2 control-label">状态</label>
+                                <div class="col-sm-10">
+<!--                                    <input v-model="course.status" class="form-control"  placeholder="状态">-->
+                                    <select v-model="course.status" class="form-control">
+                                        <option v-for="o in COURSE_STATUS" :value="o.key">{{o.value}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-2 control-label">报名数</label>
+                                <div class="col-sm-10">
+                                    <input v-model="course.enroll" class="form-control"  placeholder="报名数">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-2 control-label">顺序</label>
+                                <div class="col-sm-10">
+                                    <input v-model="course.sort" class="form-control"  placeholder="顺序">
+                                </div>
+                            </div>
 
 
 
@@ -144,23 +217,26 @@
     // import Swal from 'sweetalert2';
 
     export default {
-        name: "${module}-${domain}",
+        name: "business-course",
         components: {
             Pagination
         },
 
         data() {
             return {
-                ${domain}s: [],
-                ${domain}:{}
+                courses: [],
+                course:{},
+                COURSE_LEVEL:COURSE_LEVEL,
+                COURSE_STATUS:COURSE_STATUS,
+                COURSE_CHARGE:COURSE_CHARGE
             }
         },
         mounted() {
             let _this = this;
-            _this.$parent.activeSidebar("${module}-${domain}-sidebar");
+            _this.$parent.activeSidebar("business-course-sidebar");
             // list(){
             //     let _this = this;
-            //     _this.$ajax.get('http:127.0.0.1:9002/${module}/${domain}/list').then((response)=>{
+            //     _this.$ajax.get('http:127.0.0.1:9002/business/course/list').then((response)=>{
             //         console.log("jieguo",response);
             //     });
             //     // http.get()
@@ -176,14 +252,14 @@
             list(page) {
                 let _this = this;
                 Loading.show();
-                _this.$ajax.post(process.env.VUE_APP_SERVER + '/${module}/admin/${domain}/list', {
+                _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/course/list', {
                     page: page,
                     size: _this.$refs.pagination.size
                 }).then((response) => {
                     Loading.hide();
                     // console.log("jieguo", response);
                     let res = response.data;
-                    _this.${domain}s = res.content.list;
+                    _this.courses = res.content.list;
                     _this.$refs.pagination.render(page, res.content.total);
 
                 });
@@ -191,21 +267,21 @@
 
             add() {
                 let _this = this;// eslint-disable-line no-unused-vars
-                _this.${domain} = {};
+                _this.course = {};
                 $(".modal").modal("show");
             },
 
-            edit(${domain}){
+            edit(course){
                 let _this = this;
                 $(".modal").modal("show");
-                _this.${domain} = $.extend({},${domain});
+                _this.course = $.extend({},course);
             },
 
             deleteData(id){
                 let _this = this;
-                Confirm.show("删除${tableNameCn}后不可恢复，确认删除？",function () {
+                Confirm.show("删除课程表后不可恢复，确认删除？",function () {
                     Loading.show();
-                    _this.$ajax.delete(process.env.VUE_APP_SERVER + '/${module}/admin/${domain}/delete/' + id).then((response) => {
+                    _this.$ajax.delete(process.env.VUE_APP_SERVER + '/business/admin/course/delete/' + id).then((response) => {
                         Loading.hide();
                         let res = response.data;
                         console.log("jieguo add", response);
@@ -214,7 +290,7 @@
                             _this.list(1);
                             Toast.success("删除成功!")
                         }
-                        // _this.${domain}s = response.data.list;
+                        // _this.courses = response.data.list;
                         // _this.$refs.pagination.render(page, response.data.total);
 
                     });
@@ -230,7 +306,7 @@
                 // }).then((result) => {
                 //     if (result.value) {
                 //         Loading.show();
-                //         _this.$ajax.delete('http://127.0.0.1:9000/${module}/admin/${domain}/delete/' + id).then((response) => {
+                //         _this.$ajax.delete('http://127.0.0.1:9000/business/admin/course/delete/' + id).then((response) => {
                 //             Loading.hide();
                 //             let res = response.data;
                 //             console.log("jieguo add", response);
@@ -239,7 +315,7 @@
                 //                 _this.list(1);
                 //                 Toast.success("删除成功!")
                 //             }
-                //             // _this.${domain}s = response.data.list;
+                //             // _this.courses = response.data.list;
                 //             // _this.$refs.pagination.render(page, response.data.total);
                 //
                 //         });
@@ -260,29 +336,24 @@
                 let _this = this;
 
                 if (1!=1
-                <#list fieldList as field>
-                    <#if field.name!="id" && field.nameHump!="createdAt" && field.nameHump!="updatedAt" && field.nameHump!="sort">
-                    <#if !field.nullAble>
-                   || !Validator.request(_this.${domain}.${field.nameHump},"${field.nameCn}")
-                    </#if>
-                    <#if (field.length > 0)>
-                   || !Validator.length(_this.${domain}.${field.nameHump},"${field.nameCn}",1,${field.length?c})
-                    </#if>
-                    </#if>
-                </#list>){
+                                   || !Validator.request(_this.course.name,"名称")
+                   || !Validator.length(_this.course.name,"名称",1,50)
+                                   || !Validator.length(_this.course.summary,"概述",1,2000)
+                                                                   || !Validator.length(_this.course.image,"封面",1,100)
+                                                                                                                                ){
                     return;
                 }
 
                 //保存校验
-                // if (!Validator.request(_this.${domain}.name,"名称")
-                //     || !Validator.request(_this.${domain}.courseId,"课程ID")
-                //     || !Validator.length(_this.${domain}.courseId,"课程ID",1,8)){
+                // if (!Validator.request(_this.course.name,"名称")
+                //     || !Validator.request(_this.course.courseId,"课程ID")
+                //     || !Validator.length(_this.course.courseId,"课程ID",1,8)){
                 //     return;
                 // }
 
 
-                _this.$ajax.post(process.env.VUE_APP_SERVER + '/${module}/admin/${domain}/save',
-                    _this.${domain}
+                _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/course/save',
+                    _this.course
                 ).then((response) => {
                     let res = response.data;
                     console.log("jieguo add", response);
@@ -293,7 +364,7 @@
                     }else{
                         Toast.warning(res.message);
                     }
-                    // _this.${domain}s = response.data.list;
+                    // _this.courses = response.data.list;
                     // _this.$refs.pagination.render(page, response.data.total);
 
                 });

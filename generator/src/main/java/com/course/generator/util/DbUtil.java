@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import com.mysql.jdbc.Driver;
 
 public class DbUtil {
     //获取数据库连接

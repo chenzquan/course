@@ -420,6 +420,13 @@
 
                         <ul class="submenu">
 
+                            <li class="active" id="business-course-sidebar">
+                                <router-link to="/business/course" class="dropdown-toggle">
+                                    <i class="menu-icon fa fa-caret-right"></i>
+                                    课程管理
+                                </router-link>
+                            </li>
+
                             <li class="active" id="business-chapter-sidebar">
                                 <router-link to="/business/chapter" class="dropdown-toggle">
                                     <i class="menu-icon fa fa-caret-right"></i>
@@ -434,6 +441,9 @@
                                     小节管理
                                 </router-link>
                             </li>
+
+
+
 
                         </ul>
                     </li>
