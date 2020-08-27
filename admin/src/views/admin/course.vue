@@ -11,105 +11,141 @@
             </button>
         </p>
         <Pagination ref="pagination" :list="list"></Pagination>
-        <table id="simple-table" class="table  table-bordered table-hover">
-            <thead>
-            <tr>
-                             <th>ID</th>
-             <th>名称</th>
-             <th>概述</th>
-             <th>时长</th>
-             <th>价格(元)</th>
-             <th>封面</th>
-             <th>级别</th>
-             <th>收费</th>
-             <th>状态</th>
-             <th>报名数</th>
-             <th>顺序</th>
 
-            <th>操作</th>
+        <div class="row">
+            <div v-for="course in courses" :key="course.id"  class="col-md-2">
+                <div class="thumbnail search-thumbnail">
+                    <img v-show="!course.image" class="media-object" src="/static/image/demo-course.jpg" />
+                    <img v-show="course.image" class="media-object" :src="course.image" />
+                    <div class="caption">
+                        <div class="clearfix">
+                            <span class="pull-right label label-primary info-label">{{COURSE_LEVEL | optionKV(course.level)}}</span>
+                            <span class="pull-right label label-primary info-label">{{COURSE_CHARGE | optionKV(course.charge)}}</span>
+                            <span class="pull-right label label-primary info-label">{{COURSE_STATUS | optionKV(course.status)}}</span>
+                        </div>
 
+                        <h3 class="search-title">
+                            <a href="#" class="blue">{{course.name}}</a>
+                        </h3>
+                        <p>
+                            <span class="blue bolder bigger-150">{{course.price}}&nbsp;<i class="fa fa-rmb"></i></span>
+                        </p>
+                        <p>{{course.summary}}</p>
+                        <p>
+                            <button class="btn btn-white btn-xs btn-info btn-round" @click="edit(course)">
+<!--                                <i class="ace-icon fa fa-pencil bigger-120"></i>-->
+                                编辑
+                            </button>
 
-            <th></th>
-            </tr>
-            </thead>
-
-            <tbody>
-
-            <tr v-for="course in courses" :key="course.id">
-                <td>{{course.id}}</td>
-                <td>{{course.name}}</td>
-                <td>{{course.summary}}</td>
-                <td>{{course.time}}</td>
-                <td>{{course.price}}</td>
-                <td>{{course.image}}</td>
-                <td>{{COURSE_LEVEL | optionKV(course.level)}}</td>
-                <td>{{COURSE_CHARGE | optionKV(course.charge)}}</td>
-                <td>{{COURSE_STATUS | optionKV(course.status)}}</td>
-                <td>{{course.enroll}}</td>
-                <td>{{course.sort}}</td>
-
-
-            <!--            <td>Feb 12</td>-->
-
-
-            <td>
-                <div class="hidden-sm hidden-xs btn-group">
-                    <!--                        <button class="btn btn-xs btn-success">-->
-                    <!--                            <i class="ace-icon fa fa-check bigger-120"></i>-->
-                    <!--                        </button>-->
-
-                    <button class="btn btn-xs btn-info" @click="edit(course)">
-                        <i class="ace-icon fa fa-pencil bigger-120"></i>
-                    </button>
-
-                    <button class="btn btn-xs btn-danger" @click="deleteData(course.id)">
-                        <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                    </button>
-
-                    <!--                        <button class="btn btn-xs btn-warning">-->
-                    <!--                            <i class="ace-icon fa fa-flag bigger-120"></i>-->
-                    <!--                        </button>-->
-                </div>
-
-                <div class="hidden-md hidden-lg">
-                    <div class="inline pos-rel">
-                        <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown"
-                                data-position="auto">
-                            <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
-                        </button>
-
-                        <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-                            <li>
-                                <a href="#" class="tooltip-info" data-rel="tooltip" title="View">
-                                                                    <span class="blue">
-                                                                        <i class="ace-icon fa fa-search-plus bigger-120"></i>
-                                                                    </span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
-                                                                    <span class="green">
-                                                                        <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-                                                                    </span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
-                                                                    <span class="red">
-                                                                        <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                                                                    </span>
-                                </a>
-                            </li>
-                        </ul>
+                            <button class="btn btn-white btn-xs btn-warning btn-round" @click="deleteData(course.id)">
+<!--                                <i class="ace-icon fa fa-trash-o bigger-120"></i>-->
+                                删除
+                            </button>
+                        </p>
                     </div>
                 </div>
-            </td>
-            </tr>
+            </div>
+        </div>
 
-            </tbody>
-        </table>
+<!--        <table id="simple-table" class="table  table-bordered table-hover">-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                             <th>ID</th>-->
+<!--             <th>名称</th>-->
+<!--             <th>概述</th>-->
+<!--             <th>时长</th>-->
+<!--             <th>价格(元)</th>-->
+<!--             <th>封面</th>-->
+<!--             <th>级别</th>-->
+<!--             <th>收费</th>-->
+<!--             <th>状态</th>-->
+<!--             <th>报名数</th>-->
+<!--             <th>顺序</th>-->
+
+<!--            <th>操作</th>-->
+
+
+<!--            <th></th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+
+<!--            <tbody>-->
+
+<!--            <tr v-for="course in courses" :key="course.id">-->
+<!--                <td>{{course.id}}</td>-->
+<!--                <td>{{course.name}}</td>-->
+<!--                <td>{{course.summary}}</td>-->
+<!--                <td>{{course.time}}</td>-->
+<!--                <td>{{course.price}}</td>-->
+<!--                <td>{{course.image}}</td>-->
+<!--                <td>{{COURSE_LEVEL | optionKV(course.level)}}</td>-->
+<!--                <td>{{COURSE_CHARGE | optionKV(course.charge)}}</td>-->
+<!--                <td>{{COURSE_STATUS | optionKV(course.status)}}</td>-->
+<!--                <td>{{course.enroll}}</td>-->
+<!--                <td>{{course.sort}}</td>-->
+
+
+<!--            &lt;!&ndash;            <td>Feb 12</td>&ndash;&gt;-->
+
+
+<!--            <td>-->
+<!--                <div class="hidden-sm hidden-xs btn-group">-->
+<!--                    &lt;!&ndash;                        <button class="btn btn-xs btn-success">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                            <i class="ace-icon fa fa-check bigger-120"></i>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                        </button>&ndash;&gt;-->
+
+<!--                    <button class="btn btn-xs btn-info" @click="edit(course)">-->
+<!--                        <i class="ace-icon fa fa-pencil bigger-120"></i>-->
+<!--                    </button>-->
+
+<!--                    <button class="btn btn-xs btn-danger" @click="deleteData(course.id)">-->
+<!--                        <i class="ace-icon fa fa-trash-o bigger-120"></i>-->
+<!--                    </button>-->
+
+<!--                    &lt;!&ndash;                        <button class="btn btn-xs btn-warning">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                            <i class="ace-icon fa fa-flag bigger-120"></i>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                        </button>&ndash;&gt;-->
+<!--                </div>-->
+
+<!--                <div class="hidden-md hidden-lg">-->
+<!--                    <div class="inline pos-rel">-->
+<!--                        <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown"-->
+<!--                                data-position="auto">-->
+<!--                            <i class="ace-icon fa fa-cog icon-only bigger-110"></i>-->
+<!--                        </button>-->
+
+<!--                        <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">-->
+<!--                            <li>-->
+<!--                                <a href="#" class="tooltip-info" data-rel="tooltip" title="View">-->
+<!--                                                                    <span class="blue">-->
+<!--                                                                        <i class="ace-icon fa fa-search-plus bigger-120"></i>-->
+<!--                                                                    </span>-->
+<!--                                </a>-->
+<!--                            </li>-->
+
+<!--                            <li>-->
+<!--                                <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">-->
+<!--                                                                    <span class="green">-->
+<!--                                                                        <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>-->
+<!--                                                                    </span>-->
+<!--                                </a>-->
+<!--                            </li>-->
+
+<!--                            <li>-->
+<!--                                <a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">-->
+<!--                                                                    <span class="red">-->
+<!--                                                                        <i class="ace-icon fa fa-trash-o bigger-120"></i>-->
+<!--                                                                    </span>-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </td>-->
+<!--            </tr>-->
+
+<!--            </tbody>-->
+<!--        </table>-->
 
         <div class="modal fade" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
@@ -374,5 +410,13 @@
 
     }
 </script>
+
+<!-- scoped  style下的样式只应用于当前组件，防止互相污染 -->
+
+<style scoped>
+    .caption h3{
+        font-size: 20px;
+    }
+</style>
 
 
