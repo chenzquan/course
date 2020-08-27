@@ -31,6 +31,12 @@
                             <span class="blue bolder bigger-150">{{course.price}}&nbsp;<i class="fa fa-rmb"></i></span>
                         </p>
                         <p>{{course.summary}}</p>
+
+                        <div class="clearfix">
+                            <span class="pull-left label label-primary info-label">{{course.id}}</span>
+<!--                            <span class="pull-right label label-primary info-label">{{COURSE_CHARGE | optionKV(course.charge)}}</span>-->
+<!--                            <span class="pull-right label label-primary info-label">{{COURSE_STATUS | optionKV(course.status)}}</span>-->
+                        </div>
                         <p>
 
                             <button class="btn btn-white btn-xs btn-info btn-round" @click="toChapter(course)">
