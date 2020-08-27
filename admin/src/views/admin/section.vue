@@ -1,7 +1,24 @@
 <template>
     <div>
-        <p>
 
+        <h4 class="lighter">
+            <i class="ace-icon fa fa-hand-o-right icon-animated-hand-pointer blue"></i>
+            <router-link to="/business/course" data-toggle="modal" class="pink">{{course.name}} </router-link>
+            &nbsp;
+            <i class="ace-icon fa fa-hand-o-right icon-animated-hand-pointer blue"></i>
+            <router-link to="/business/chapter" data-toggle="modal" class="pink">{{chapter.name}} </router-link>
+        </h4>
+
+        <hr>
+        <p>
+            <router-link to="/business/course" class="btn btn-white btn-default btn-round">
+                <i class="ace-icon fa fa-arrow-left"></i>返回课程
+            </router-link>
+            &nbsp;
+            <router-link to="/business/chapter" class="btn btn-white btn-default btn-round">
+                <i class="ace-icon fa fa-arrow-left"></i>返回课程
+            </router-link>
+            &nbsp;
             <button @click="add()" class="btn btn-white btn-default btn-round">
                 <i class="ace-icon fa fa-edit"></i>新增
             </button>
@@ -14,10 +31,10 @@
         <table id="simple-table" class="table  table-bordered table-hover">
             <thead>
             <tr>
-                             <th>ID</th>
+             <th>ID</th>
              <th>标题</th>
-             <th>课程</th>
-             <th>大章</th>
+<!--             <th>课程</th>-->
+<!--             <th>大章</th>-->
              <th>视频</th>
              <th>时长</th>
              <th>收费</th>
@@ -35,8 +52,8 @@
             <tr v-for="section in sections" :key="section.id">
                 <td>{{section.id}}</td>
                 <td>{{section.title}}</td>
-                <td>{{section.courseId}}</td>
-                <td>{{section.chapterId}}</td>
+<!--                <td>{{section.courseId}}</td>-->
+<!--                <td>{{section.chapterId}}</td>-->
                 <td>{{section.video}}</td>
                 <td>{{section.time}}</td>
 <!--                <td>{{section.charge}}</td>-->
@@ -128,13 +145,15 @@
                             <div class="form-group">
                                 <label  class="col-sm-2 control-label">课程</label>
                                 <div class="col-sm-10">
-                                    <input v-model="section.courseId" class="form-control"  placeholder="课程">
+<!--                                    <input v-model="section.courseId" class="form-control"  placeholder="课程">-->
+                                    <p class="form-control-static">{{course.name}}</p>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label  class="col-sm-2 control-label">大章</label>
                                 <div class="col-sm-10">
-                                    <input v-model="section.chapterId" class="form-control"  placeholder="大章">
+<!--                                    <input v-model="section.chapterId" class="form-control"  placeholder="大章">-->
+                                    <p class="form-control-static">{{chapter.name}}</p>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -196,21 +215,22 @@
             return {
                 sections: [],
                 section:{},
-                SECTION_CHARGE:SECTION_CHARGE
+                SECTION_CHARGE:SECTION_CHARGE,
+                course:{},
+                chapter:{},
             }
         },
         mounted() {
             let _this = this;
             _this.$parent.activeSidebar("business-section-sidebar");
-            // list(){
-            //     let _this = this;
-            //     _this.$ajax.get('http:127.0.0.1:9002/business/section/list').then((response)=>{
-            //         console.log("jieguo",response);
-            //     });
-            //     // http.get()
-            // }
+            let course = SessionStorage.get("course") || {};
+            let chapter = SessionStorage.get("chapter") || {};
 
-
+            if(Tool.isEmpty(course) || Tool.isEmpty(chapter)){
+                _this.$router.push("/welcome");
+            }
+            _this.course = course;
+            _this.chapter = chapter;
             _this.list(1);
 
         },
@@ -222,7 +242,9 @@
                 Loading.show();
                 _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/section/list', {
                     page: page,
-                    size: _this.$refs.pagination.size
+                    size: _this.$refs.pagination.size,
+                    courseId:_this.course.id,
+                    chapterId:_this.chapter.id
                 }).then((response) => {
                     // console.log("jieguo", response);
                     let res = response.data;
@@ -302,28 +324,22 @@
 
             save(){
                 let _this = this;
-
+                //保存校验
                 if (1!=1
-                                   || !Validator.request(_this.section.title,"标题")
+                    || !Validator.request(_this.section.title,"标题")
                    || !Validator.length(_this.section.title,"标题",1,50)
-                                                                   || !Validator.length(_this.section.video,"视频",1,200)
-                                                                                                ){
+                    || !Validator.length(_this.section.video,"视频",1,200)){
                     return;
                 }
 
-                //保存校验
-                // if (!Validator.request(_this.section.name,"名称")
-                //     || !Validator.request(_this.section.courseId,"课程ID")
-                //     || !Validator.length(_this.section.courseId,"课程ID",1,8)){
-                //     return;
-                // }
-
+                _this.section.courseId = _this.course.id;
+                _this.section.chapterId = _this.chapter.id;
 
                 _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/section/save',
                     _this.section
                 ).then((response) => {
                     let res = response.data;
-                    console.log("jieguo add", response);
+                    // console.log("jieguo add", response);
                     if(res.success){
                         $(".modal").modal("hide");
                         _this.list(1);

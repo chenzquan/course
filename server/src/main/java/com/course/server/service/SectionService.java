@@ -2,9 +2,8 @@ package com.course.server.service;
 
 import com.course.server.domain.Section;
 import com.course.server.domain.SectionExample;
-
 import com.course.server.dto.SectionDto;
-import com.course.server.dto.PageDto;
+import com.course.server.dto.SectionPageDto;
 import com.course.server.enums.SectionChargeEnum;
 import com.course.server.mapper.SectionMapper;
 import com.course.server.util.CopyUtil;
@@ -17,9 +16,8 @@ import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.List;
-
 import java.util.Date;
+import java.util.List;
 
 
 @Service
@@ -28,15 +26,25 @@ public class SectionService {
     @Resource
     private SectionMapper sectionMapper;
 
-    public void list(PageDto pageDto){
+    public void list(SectionPageDto sectionPageDto){
 
-        PageHelper.startPage(pageDto.getPage(),pageDto.getSize()); //对遇到第一个 sql 语句 进行分页
+        PageHelper.startPage(sectionPageDto.getPage(),sectionPageDto.getSize()); //对遇到第一个 sql 语句 进行分页
         SectionExample sectionExample = new SectionExample();
+
+        SectionExample.Criteria criteria = sectionExample.createCriteria();
+        if(!StringUtils.isEmpty(sectionPageDto.getCourseId())){
+            criteria.andCourseIdEqualTo(sectionPageDto.getCourseId());
+        }
+
+        if(!StringUtils.isEmpty(sectionPageDto.getChapterId())){
+            criteria.andChapterIdEqualTo(sectionPageDto.getChapterId());
+        }
+
         sectionExample.setOrderByClause("sort asc");
         List<Section> sectionList = sectionMapper.selectByExample(sectionExample);
 
         PageInfo<Section> pageInfo = new PageInfo<>(sectionList);
-        pageDto.setTotal(pageInfo.getTotal());
+        sectionPageDto.setTotal(pageInfo.getTotal());
 
         List<SectionDto> sectionDtoList = new ArrayList<>();
         for (int i = 0,l=sectionList.size(); i < l; i++) {
@@ -48,7 +56,7 @@ public class SectionService {
             sectionDtoList.add(sectionDto);
 
         }
-        pageDto.setList(sectionDtoList);
+        sectionPageDto.setList(sectionDtoList);
 
 
     }
