@@ -46,8 +46,6 @@
                 <td>{{COURSE_CHARGE | optionKV(course.charge)}}</td>
                 <td>{{COURSE_STATUS | optionKV(course.status)}}</td>
                 <td>{{course.enroll}}</td>
-
-
                 <td>{{course.sort}}</td>
 
 
@@ -125,40 +123,39 @@
                         <!--                    <p>One fine body&hellip;</p>-->
                         <form class="form-horizontal">
 
-                            <div class="form-group">
-                                <label  class="col-sm-2 control-label">名称</label>
-                                <div class="col-sm-10">
-                                    <input v-model="course.name" class="form-control"  placeholder="名称">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label  class="col-sm-2 control-label">概述</label>
-                                <div class="col-sm-10">
-                                    <input v-model="course.summary" class="form-control"  placeholder="概述">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label  class="col-sm-2 control-label">时长</label>
-                                <div class="col-sm-10">
-                                    <input v-model="course.time" class="form-control"  placeholder="时长">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label  class="col-sm-2 control-label">价格(元)</label>
-                                <div class="col-sm-10">
-                                    <input v-model="course.price" class="form-control"  placeholder="价格(元)">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label  class="col-sm-2 control-label">封面</label>
-                                <div class="col-sm-10">
-                                    <input v-model="course.image" class="form-control"  placeholder="封面">
-                                </div>
-                            </div>
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label">名称</label>
+                                        <div class="col-sm-10">
+                                            <input v-model="course.name" class="form-control"  placeholder="名称">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label">概述</label>
+                                        <div class="col-sm-10">
+                                            <input v-model="course.summary" class="form-control"  placeholder="概述">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label">时长</label>
+                                        <div class="col-sm-10">
+                                            <input v-model="course.time" class="form-control"  placeholder="时长">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label">价格(元)</label>
+                                        <div class="col-sm-10">
+                                            <input v-model="course.price" class="form-control"  placeholder="价格(元)">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label">封面</label>
+                                        <div class="col-sm-10">
+                                            <input v-model="course.image" class="form-control"  placeholder="封面">
+                                        </div>
+                                    </div>
                             <div class="form-group">
                                 <label  class="col-sm-2 control-label">级别</label>
                                 <div class="col-sm-10">
-<!--                                    <input v-model="course.level" class="form-control"  placeholder="级别">-->
                                     <select v-model="course.level" class="form-control">
                                         <option v-for="o in COURSE_LEVEL" :value="o.key">{{o.value}}</option>
                                     </select>
@@ -167,7 +164,6 @@
                             <div class="form-group">
                                 <label  class="col-sm-2 control-label">收费</label>
                                 <div class="col-sm-10">
-<!--                                    <input v-model="course.charge" class="form-control"  placeholder="收费">-->
                                     <select v-model="course.charge" class="form-control">
                                         <option v-for="o in COURSE_CHARGE" :value="o.key">{{o.value}}</option>
                                     </select>
@@ -176,24 +172,23 @@
                             <div class="form-group">
                                 <label  class="col-sm-2 control-label">状态</label>
                                 <div class="col-sm-10">
-<!--                                    <input v-model="course.status" class="form-control"  placeholder="状态">-->
                                     <select v-model="course.status" class="form-control">
                                         <option v-for="o in COURSE_STATUS" :value="o.key">{{o.value}}</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label  class="col-sm-2 control-label">报名数</label>
-                                <div class="col-sm-10">
-                                    <input v-model="course.enroll" class="form-control"  placeholder="报名数">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label  class="col-sm-2 control-label">顺序</label>
-                                <div class="col-sm-10">
-                                    <input v-model="course.sort" class="form-control"  placeholder="顺序">
-                                </div>
-                            </div>
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label">报名数</label>
+                                        <div class="col-sm-10">
+                                            <input v-model="course.enroll" class="form-control"  placeholder="报名数">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label">顺序</label>
+                                        <div class="col-sm-10">
+                                            <input v-model="course.sort" class="form-control"  placeholder="顺序">
+                                        </div>
+                                    </div>
 
 
 
@@ -227,8 +222,8 @@
                 courses: [],
                 course:{},
                 COURSE_LEVEL:COURSE_LEVEL,
+                COURSE_CHARGE:COURSE_CHARGE,
                 COURSE_STATUS:COURSE_STATUS,
-                COURSE_CHARGE:COURSE_CHARGE
             }
         },
         mounted() {
