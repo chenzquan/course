@@ -32,6 +32,12 @@
                         </p>
                         <p>{{course.summary}}</p>
                         <p>
+
+                            <button class="btn btn-white btn-xs btn-info btn-round" @click="toChapter(course)">
+                                <!--                                <i class="ace-icon fa fa-pencil bigger-120"></i>-->
+                                大章
+                            </button>
+
                             <button class="btn btn-white btn-xs btn-info btn-round" @click="edit(course)">
 <!--                                <i class="ace-icon fa fa-pencil bigger-120"></i>-->
                                 编辑
@@ -327,60 +333,18 @@
                     });
                 });
 
-                // Swal.fire({
-                //     title: '确认删除?',
-                //     text: '删除后不可恢复，确认删除',
-                //     icon: 'warning',
-                //     showCancelButton: true,
-                //     confirmButtonText: '确认',
-                //     cancelButtonText: '取消'
-                // }).then((result) => {
-                //     if (result.value) {
-                //         Loading.show();
-                //         _this.$ajax.delete('http://127.0.0.1:9000/business/admin/course/delete/' + id).then((response) => {
-                //             Loading.hide();
-                //             let res = response.data;
-                //             console.log("jieguo add", response);
-                //             if(res.success){
-                //                 // $(".modal").modal("hide");
-                //                 _this.list(1);
-                //                 Toast.success("删除成功!")
-                //             }
-                //             // _this.courses = response.data.list;
-                //             // _this.$refs.pagination.render(page, response.data.total);
-                //
-                //         });
-                //     }
-                //     // else if (result.dismiss === Swal.DismissReason.cancel) {
-                //     //     Swal.fire(
-                //     //         'Cancelled',
-                //     //         'Your imaginary file is safe :)',
-                //     //         'error'
-                //     //     )
-                //     // }
-                // });
-
-
             },
 
             save(){
                 let _this = this;
-
+                //保存校验
                 if (1!=1
-                                   || !Validator.request(_this.course.name,"名称")
-                   || !Validator.length(_this.course.name,"名称",1,50)
-                                   || !Validator.length(_this.course.summary,"概述",1,2000)
-                                                                   || !Validator.length(_this.course.image,"封面",1,100)
-                                                                                                                                ){
+                    || !Validator.request(_this.course.name,"名称")
+                    || !Validator.length(_this.course.name,"名称",1,50)
+                    || !Validator.length(_this.course.summary,"概述",1,2000)
+                    || !Validator.length(_this.course.image,"封面",1,100)){
                     return;
                 }
-
-                //保存校验
-                // if (!Validator.request(_this.course.name,"名称")
-                //     || !Validator.request(_this.course.courseId,"课程ID")
-                //     || !Validator.length(_this.course.courseId,"课程ID",1,8)){
-                //     return;
-                // }
 
 
                 _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/course/save',
@@ -401,7 +365,12 @@
                 });
             },
 
+            toChapter(course){
+                let _this = this;
+                SessionStorage.set("course",course);
+                _this.$router.push("/business/chapter");
 
+            },
 
 
 
