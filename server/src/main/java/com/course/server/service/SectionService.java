@@ -12,6 +12,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -67,6 +68,7 @@ public class SectionService {
     /**
      * 列表查询
      */
+    @Transactional
     public void save(SectionDto sectionDto) {
 //        sectionDto.setId(UuidUtil.getShortUuid());
 //        Section section = new Section();
