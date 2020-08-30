@@ -41,6 +41,38 @@ let optionKV = (object,key)=>{
     }
 };
 
+/**
+ * 时间格式化  36000
+ * @param value  10:00:00
+ */
+let formatSecond = (value) =>{
+    value = value || 0;
+    let second = parseInt(value,10);
+    let minute = 0; //分
+    let hour = 0;
+    if(second > 60){
+        minute = Math.floor(second / 60);
+        second = Math.floor(second % 60);
+
+        if(minute > 60){
+            hour = Math.floor(minute / 60);
+            minute = Math.floor(minute % 60);
+        }
+
+    }
+
+    let result = "" + PrefixInteger(second,2) + "";
+    result = "" + PrefixInteger(minute,2) + ":" + result;
+    result = "" + PrefixInteger(hour,2) + ":" + result;
+    return result;
+};
+
+function PrefixInteger(num,length) {
+    return (Array(length).join('0') + num).slice(-length);
+}
+
+
 export default {
-    optionKV
+    optionKV,
+    formatSecond
 }

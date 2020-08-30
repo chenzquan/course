@@ -33,7 +33,9 @@
                         <p>{{course.summary}}</p>
 
                         <div class="clearfix">
-                            <span class="pull-left label label-primary info-label">{{course.id}}</span>
+                            <span class="badge badge-info">{{course.id}}</span>
+                            <span class="badge badge-info">排序：{{course.sort}}</span>
+                            <span class="badge badge-info">时长：{{course.time  | formatSecond}}</span>
 <!--                            <span class="pull-right label label-primary info-label">{{COURSE_CHARGE | optionKV(course.charge)}}</span>-->
 <!--                            <span class="pull-right label label-primary info-label">{{COURSE_STATUS | optionKV(course.status)}}</span>-->
                         </div>
