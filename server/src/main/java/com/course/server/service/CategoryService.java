@@ -10,6 +10,7 @@ import com.course.server.util.UuidUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -72,8 +73,25 @@ public class CategoryService {
     }
 
 
+    @Transactional
     public void delete(String id){
+        deleteChildren(id);
         categoryMapper.deleteByPrimaryKey(id);
+    }
+
+
+    /**
+     * 删除子分类
+     * @param id
+     */
+    public void deleteChildren(String id) {
+        Category category = categoryMapper.selectByPrimaryKey(id);
+        if("00000000".equals(category.getParent())){
+            CategoryExample example = new CategoryExample();
+            example.createCriteria().andParentEqualTo(category.getParent());
+            categoryMapper.deleteByExample(example);
+        }
+
     }
 
 
