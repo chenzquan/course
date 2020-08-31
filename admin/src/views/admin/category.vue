@@ -360,6 +360,7 @@
                     _this.categorys = res.content;
                     //将数据 变成树形 结构
                     _this.level1 = [];
+
                     for(let i=0; i<_this.categorys.length; i++){
                         let c = _this.categorys[i];
                         if(c.parent === '00000000'){
@@ -375,6 +376,14 @@
                             }
                         }
                     }
+
+                    _this.level2 = [];
+
+                    //对当前一级分类中选中的表格触发一次点击事件，以刷新二级菜单列表
+                    // 注意：界面的渲染需要等vue绑定好变量后才做， 所以加了 延迟
+                    setTimeout(function () {
+                        $("tr.active").trigger("click");
+                    },100);
 
                 });
             },
@@ -425,7 +434,7 @@
                     _this.category
                 ).then((response) => {
                     let res = response.data;
-                    console.log("jieguo add", response);
+                    // console.log("jieguo add", response);
                     if(res.success){
                         $(".modal").modal("hide");
                         _this.all();
@@ -466,12 +475,7 @@
                 };
 
                 $(".modal").modal("show");
-
             }
-
-
-
-
         }
 
 
