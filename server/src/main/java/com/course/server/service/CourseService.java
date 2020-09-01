@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -64,19 +65,14 @@ public class CourseService {
     /**
      * 列表查询
      */
+    @Transactional
     public void save(CourseDto courseDto) {
-//        courseDto.setId(UuidUtil.getShortUuid());
-//        Course course = new Course();
-//        BeanUtils.copyProperties(courseDto,course);
-//        courseMapper.insert(course);
-
         Course course = CopyUtil.copy(courseDto,Course.class);
         if(StringUtils.isEmpty(courseDto.getId())){
             this.insert(course);
         }else{
             this.update(course);
         }
-
         courseCategoryService.saveBatch(courseDto.getId(),courseDto.getCategorys());
 
     }

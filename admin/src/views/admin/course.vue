@@ -223,12 +223,14 @@
             add() {
                 let _this = this;// eslint-disable-line no-unused-vars
                 _this.course = {};
+                _this.tree.checkAllNodes(false);
                 $(".modal").modal("show");
             },
 
             edit(course) {
                 let _this = this;
                 $(".modal").modal("show");
+                _this.listCategory(course.id);
                 _this.course = $.extend({}, course);
             },
 
@@ -332,7 +334,8 @@
                 // ];
 
                 _this.tree = $.fn.zTree.init($("#tree"), setting, zNodes);
-                // tree.getCheckedNodes();
+                //展开所有节点
+                // _this.tree.expandAll(true);
             },
 
             allCategory() {
@@ -345,6 +348,27 @@
                     _this.initTree();
                 });
             },
+
+            listCategory(courseId){
+                let _this = this;
+                Loading.show();
+                _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/course/list-category/' + courseId).then((response)=>{
+                    Loading.hide();
+                    let res = response.data;
+                    let categorys = res.content;
+
+
+                    _this.tree.checkAllNodes(false);
+
+                    //勾选查询到的分类
+                    for (let i=0; i<categorys.length; i++){
+                        let node = _this.tree.getNodeByParam("id",categorys[i].categoryId);
+                        _this.tree.checkNode(node,true);
+                    }
+
+
+                });
+            }
 
 
         }
