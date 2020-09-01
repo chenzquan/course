@@ -33,6 +33,9 @@ public class CourseService {
     @Resource
     private MyCourseMapper myCourseMapper;
 
+    @Resource
+    private CourseCategoryService courseCategoryService;
+
     public void list(PageDto pageDto){
 
         PageHelper.startPage(pageDto.getPage(),pageDto.getSize()); //对遇到第一个 sql 语句 进行分页
@@ -73,6 +76,8 @@ public class CourseService {
         }else{
             this.update(course);
         }
+
+        courseCategoryService.saveBatch(courseDto.getId(),courseDto.getCategorys());
 
     }
 

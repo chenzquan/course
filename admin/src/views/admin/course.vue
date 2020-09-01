@@ -182,7 +182,8 @@
                 COURSE_LEVEL: COURSE_LEVEL,
                 COURSE_CHARGE: COURSE_CHARGE,
                 COURSE_STATUS: COURSE_STATUS,
-                categorys:[]
+                categorys:[],
+                tree:{}
             }
         },
         mounted() {
@@ -263,12 +264,19 @@
                     return;
                 }
 
+                let categorys = _this.tree.getCheckedNodes();
+                if(Tool.isEmpty(categorys)){
+                    Toast.warning("请选择分类！");
+                    return;
+                }
+                _this.course.categorys = categorys;
 
+                Loading.show();
                 _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/course/save',
                     _this.course
                 ).then((response) => {
+                    Loading.hide();
                     let res = response.data;
-                    console.log("jieguo add", response);
                     if (res.success) {
                         $(".modal").modal("hide");
                         _this.list(1);
@@ -323,7 +331,8 @@
                 //     { id:23, pId:2, name:"随意勾选 2-3"}
                 // ];
 
-                $.fn.zTree.init($("#tree"), setting, zNodes);
+                _this.tree = $.fn.zTree.init($("#tree"), setting, zNodes);
+                // tree.getCheckedNodes();
             },
 
             allCategory() {
