@@ -429,6 +429,17 @@
                         if(res.content){
                             $("#content").summernote('code',res.content.content);
                         }
+
+                        //定时保存
+                        let saveContentInterval = setInterval(function () {
+                            _this.saveContent();
+                        },5000);
+
+                        //关闭内容框时，清空自动保存任务
+                        $("#course-content-modal").on('hidden.bs.modal',function (e) {
+                            clearInterval(saveContentInterval);
+                        });
+
                     }else{
                         Toast.warning(res.message);
                     }
