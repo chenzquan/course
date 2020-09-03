@@ -16,7 +16,7 @@
             </router-link>
             &nbsp;
             <router-link to="/business/chapter" class="btn btn-white btn-default btn-round">
-                <i class="ace-icon fa fa-arrow-left"></i>返回课程
+                <i class="ace-icon fa fa-arrow-left"></i>返回大章
             </router-link>
             &nbsp;
             <button @click="add()" class="btn btn-white btn-default btn-round">
@@ -232,7 +232,7 @@
             _this.course = course;
             _this.chapter = chapter;
             _this.list(1);
-
+            _this.$parent.activeSidebar("business-course-sidebar");
         },
 
 

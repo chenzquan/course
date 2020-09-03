@@ -434,20 +434,20 @@
                                 </router-link>
                             </li>
 
-                            <li class="active" id="business-chapter-sidebar">
-                                <router-link to="/business/chapter" class="dropdown-toggle">
-                                    <i class="menu-icon fa fa-caret-right"></i>
-                                    大章管理
-                                </router-link>
-                            </li>
+<!--                            <li class="active" id="business-chapter-sidebar">-->
+<!--                                <router-link to="/business/chapter" class="dropdown-toggle">-->
+<!--                                    <i class="menu-icon fa fa-caret-right"></i>-->
+<!--                                    大章管理-->
+<!--                                </router-link>-->
+<!--                            </li>-->
 
 
-                            <li class="active" id="business-section-sidebar">
-                                <router-link to="/business/section" class="dropdown-toggle">
-                                    <i class="menu-icon fa fa-caret-right"></i>
-                                    小节管理
-                                </router-link>
-                            </li>
+<!--                            <li class="active" id="business-section-sidebar">-->
+<!--                                <router-link to="/business/section" class="dropdown-toggle">-->
+<!--                                    <i class="menu-icon fa fa-caret-right"></i>-->
+<!--                                    小节管理-->
+<!--                                </router-link>-->
+<!--                            </li>-->
 
 
 
