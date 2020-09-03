@@ -6,6 +6,7 @@ import com.course.server.domain.CourseExample;
 import com.course.server.dto.CourseContentDto;
 import com.course.server.dto.CourseDto;
 import com.course.server.dto.PageDto;
+import com.course.server.dto.SortDto;
 import com.course.server.mapper.CourseContentMapper;
 import com.course.server.mapper.CourseMapper;
 import com.course.server.mapper.my.MyCourseMapper;
@@ -79,7 +80,7 @@ public class CourseService {
         }else{
             this.update(course);
         }
-        courseCategoryService.saveBatch(courseDto.getId(),courseDto.getCategorys());
+        courseCategoryService.saveBatch(course.getId(),courseDto.getCategorys());
 
     }
 
@@ -140,4 +141,24 @@ public class CourseService {
     }
 
 
+    @Transactional
+    public void sort(SortDto sortDto) {
+
+        //修改当前记录的排序值
+        myCourseMapper.updateSort(sortDto);
+
+        //
+        if(sortDto.getNewSort() > sortDto.getOldSort()){
+            myCourseMapper.moveSortsForward(sortDto);
+        }
+
+
+        if(sortDto.getNewSort() < sortDto.getOldSort()){
+            myCourseMapper.moveSortsBackward(sortDto);
+        }
+
+
+
+
+    }
 }

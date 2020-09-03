@@ -45,17 +45,22 @@
                                 <!--                                <i class="ace-icon fa fa-pencil bigger-120"></i>-->
                                 大章
                             </button>
-
+                            &nbsp;
                             <button class="btn btn-white btn-xs btn-info btn-round" @click="editContent(course)">
                                 <!--                                <i class="ace-icon fa fa-pencil bigger-120"></i>-->
                                 内容
                             </button>
+                            &nbsp;
 
+                            <button class="btn btn-white btn-xs btn-info btn-round" @click="openSortModal(course)">
+                                <!--                                <i class="ace-icon fa fa-pencil bigger-120"></i>-->
+                                排序
+                            </button>
                             <button class="btn btn-white btn-xs btn-info btn-round" @click="edit(course)">
                                 <!--                                <i class="ace-icon fa fa-pencil bigger-120"></i>-->
                                 编辑
                             </button>
-
+                            &nbsp;
                             <button class="btn btn-white btn-xs btn-warning btn-round" @click="deleteData(course.id)">
                                 <!--                                <i class="ace-icon fa fa-trash-o bigger-120"></i>-->
                                 删除
@@ -151,7 +156,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">顺序</label>
                                 <div class="col-sm-10">
-                                    <input v-model="course.sort" class="form-control" placeholder="顺序">
+                                    <input v-model="course.sort" class="form-control disabled" placeholder="顺序" >
                                 </div>
                             </div>
 
@@ -196,6 +201,51 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
+        <div id="course-sort-modal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">排序</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!--                    <p>One fine body&hellip;</p>-->
+                        <form class="form-horizontal">
+
+                            <div class="form-group">
+
+
+                                <label class="control-label col-lg-3">
+                                    当前排序
+                                </label>
+
+                                <div class="col-lg-9">
+                                    <input class="form-control" v-model="sort.oldSort" name="oldSort" disabled>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-lg-3">
+                                    新排序
+                                </label>
+
+                                <div class="col-lg-9">
+                                    <input class="form-control" v-model="sort.newSort" name="newSort">
+                                </div>
+                            </div>
+
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" @click="updateSort()">保存</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
     </div>
 
 </template>
@@ -219,7 +269,12 @@
                 COURSE_CHARGE: COURSE_CHARGE,
                 COURSE_STATUS: COURSE_STATUS,
                 categorys:[],
-                tree:{}
+                tree:{},
+                sort:{
+                    id:"",
+                    oldSort:0,
+                    newSort:0
+                }
             }
         },
         mounted() {
@@ -258,7 +313,9 @@
 
             add() {
                 let _this = this;// eslint-disable-line no-unused-vars
-                _this.course = {};
+                _this.course = {
+                    sort:_this.$refs.pagination.total + 1
+                };
                 _this.tree.checkAllNodes(false);
                 $("#course-form").modal("show");
             },
@@ -462,6 +519,40 @@
                         Toast.warning(resp.message);
                     }
                 });
+            },
+
+            openSortModal(course){
+                let _this = this;
+                _this.sort = {
+                    id:course.id,
+                    oldSort: course.sort,
+                    newSort:course.sort
+                };
+
+                $("#course-sort-modal").modal("show");
+            },
+
+            updateSort(){
+                let _this = this;
+                if(_this.sort.newSort === _this.sort.oldSort){
+                    Toast.warning("排序没有变化");
+                    return;
+                }
+                Loading.show();
+
+                _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/course/sort',_this.sort).then((res)=>{
+                   let response = res.data;
+                   if(response.success){
+                       Toast.success("更新排序成功");
+                       $("#course-sort-modal").modal("hide");
+                       _this.list(1);
+                   }else {
+                       Toast.warning("更新排序失败");
+                   }
+                });
+
+
+
             }
 
 
