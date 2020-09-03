@@ -1,10 +1,7 @@
 package com.course.business.controller.admin;
 
 
-import com.course.server.dto.CourseCategoryDto;
-import com.course.server.dto.CourseDto;
-import com.course.server.dto.PageDto;
-import com.course.server.dto.ResponseDto;
+import com.course.server.dto.*;
 import com.course.server.service.CourseCategoryService;
 import com.course.server.service.CourseService;
 import com.course.server.util.ValidatorUtil;
@@ -21,7 +18,7 @@ import java.util.List;
 public class CourseController {
 
     @Resource
-    private CourseService CourseService;
+    private CourseService courseService;
 
     @Resource
     private CourseCategoryService courseCategoryService;
@@ -36,7 +33,7 @@ public class CourseController {
 
         ResponseDto responseDto = new ResponseDto();
 
-        CourseService.list(pageDto);
+        courseService.list(pageDto);
 
         responseDto.setContent(pageDto);
         return responseDto;
@@ -54,7 +51,7 @@ public class CourseController {
 
 
         ResponseDto responseDto = new ResponseDto();
-        CourseService.save(courseDto);
+        courseService.save(courseDto);
         responseDto.setContent(courseDto);
         return responseDto;
     }
@@ -62,7 +59,7 @@ public class CourseController {
     @DeleteMapping("/delete/{id}")
     public ResponseDto delete(@PathVariable String id){
         ResponseDto responseDto = new ResponseDto();
-        CourseService.delete(id);
+        courseService.delete(id);
 //        responseDto.setContent(courseDto);
         return responseDto;
     }
@@ -74,5 +71,24 @@ public class CourseController {
         responseDto.setContent(dtoList);
         return responseDto;
     }
+
+
+    @GetMapping("/find-content/{id}")
+    public ResponseDto findContent(@PathVariable(value = "id")String id){
+        ResponseDto responseDto = new ResponseDto();
+        CourseContentDto contentDto = courseService.findContent(id);
+        responseDto.setContent(contentDto);
+        return responseDto;
+    }
+
+
+    @PostMapping("/save-content")
+    public ResponseDto saveContent(@RequestBody CourseContentDto courseContentDto){
+        ResponseDto responseDto = new ResponseDto();
+        courseService.saveContent(courseContentDto);
+        return responseDto;
+    }
+
+
 
 }
