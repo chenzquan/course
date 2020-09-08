@@ -434,6 +434,13 @@
                                 </router-link>
                             </li>
 
+                            <li class="active" id="business-teacher-sidebar">
+                                <router-link to="/business/teacher" class="dropdown-toggle">
+                                    <i class="menu-icon fa fa-caret-right"></i>
+                                    讲师管理
+                                </router-link>
+                            </li>
+
 <!--                            <li class="active" id="business-chapter-sidebar">-->
 <!--                                <router-link to="/business/chapter" class="dropdown-toggle">-->
 <!--                                    <i class="menu-icon fa fa-caret-right"></i>-->
