@@ -99,6 +99,16 @@
                                     <input v-model="course.name" class="form-control" placeholder="名称">
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">讲师</label>
+                                <div class="col-sm-10">
+                                    <select v-model="course.teacherId" class="form-control">
+                                        <option v-for="o in teachers" :value="o.id">{{o.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">概述</label>
                                 <div class="col-sm-10">
@@ -274,7 +284,8 @@
                     id:"",
                     oldSort:0,
                     newSort:0
-                }
+                },
+                teachers:[]
             }
         },
         mounted() {
@@ -289,6 +300,7 @@
             // }
 
             _this.allCategory();
+            _this.allTeacher();
             _this.list(1);
 
         },
@@ -429,6 +441,17 @@
                 _this.tree = $.fn.zTree.init($("#tree"), setting, zNodes);
                 //展开所有节点
                 // _this.tree.expandAll(true);
+            },
+
+            allTeacher() {
+                let _this = this;
+                Loading.show();
+                _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/teacher/all').then((response) => {
+                    Loading.hide();
+                    let res = response.data;
+                    _this.teachers = res.content;
+
+                });
             },
 
             allCategory() {

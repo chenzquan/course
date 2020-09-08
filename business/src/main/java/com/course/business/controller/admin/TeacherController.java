@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 @RestController
@@ -61,6 +62,14 @@ public class TeacherController {
         ResponseDto responseDto = new ResponseDto();
         TeacherService.delete(id);
 //        responseDto.setContent(teacherDto);
+        return responseDto;
+    }
+
+    @PostMapping("/all")
+    public ResponseDto all(){
+        ResponseDto responseDto = new ResponseDto();
+        List<TeacherDto> teacherDtoList = TeacherService.all();
+        responseDto.setContent(teacherDtoList);
         return responseDto;
     }
 
