@@ -198,7 +198,7 @@
 
         // 保存校验
         if (1 != 1
-          || !Validator.require(_this.teacher.name, "姓名")
+          || !Validator.request(_this.teacher.name, "姓名")
           || !Validator.length(_this.teacher.name, "姓名", 1, 50)
           || !Validator.length(_this.teacher.nickname, "昵称", 1, 50)
           || !Validator.length(_this.teacher.image, "头像", 1, 100)
@@ -255,9 +255,10 @@
         _this.$ajax.post(process.env.VUE_APP_SERVER + '/file/admin/upload',formData).then((response)=>{
           Loading.hide();
           let resp = response.data;
+          let image = resp.content;
+          console.log("image",image);
 
-
-
+          _this.teacher.image = image;
         });
       }
     }
