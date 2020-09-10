@@ -463,7 +463,44 @@
                     </li>
 
 
+                    <li class="active open">
+                        <a href="#" class="dropdown-toggle">
+                            <i class="menu-icon fa fa-desktop"></i>
+                            <span class="menu-text">
+								文件管理
+							</span>
 
+                            <b class="arrow fa fa-angle-down"></b>
+                        </a>
+
+                        <b class="arrow"></b>
+
+                        <ul class="submenu">
+
+                            <li class="active" id="file-file-sidebar">
+                                <router-link to="/file/file" class="dropdown-toggle">
+                                    <i class="menu-icon fa fa-caret-right"></i>
+                                    文件管理
+                                </router-link>
+                            </li>
+
+<!--                            <li class="active" id="business-course-sidebar">-->
+<!--                                <router-link to="/business/course" class="dropdown-toggle">-->
+<!--                                    <i class="menu-icon fa fa-caret-right"></i>-->
+<!--                                    课程管理-->
+<!--                                </router-link>-->
+<!--                            </li>-->
+
+<!--                            <li class="active" id="business-teacher-sidebar">-->
+<!--                                <router-link to="/business/teacher" class="dropdown-toggle">-->
+<!--                                    <i class="menu-icon fa fa-caret-right"></i>-->
+<!--                                    讲师管理-->
+<!--                                </router-link>-->
+<!--                            </li>-->
+
+
+                        </ul>
+                    </li>
                 </ul>
 
                 <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
