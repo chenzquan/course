@@ -89,7 +89,8 @@
                   <file :text="'上传头像'"
                         :after-upload="afterUpload"
                         :input-id="'image-upload'"
-                        :suffixs="['jpg','jpeg','png']">
+                        :suffixs="['jpg','jpeg','png']"
+                        :use="FILE_USE.TEACHER.key">
                   </file>
                   <div v-show="teacher.image" class="row">
                     <div class="col-md-4">

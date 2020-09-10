@@ -2,6 +2,7 @@ package com.course.file.controller.admin;
 
 import com.course.server.dto.FileDto;
 import com.course.server.dto.ResponseDto;
+import com.course.server.enums.FileUseEnum;
 import com.course.server.service.FileService;
 import com.course.server.util.UuidUtil;
 import org.slf4j.Logger;
@@ -38,19 +39,26 @@ public class UploadController {
 
 
     @PostMapping("/upload")
-    public ResponseDto upload(@RequestParam MultipartFile file) throws IOException {
-        LOG.info("上传文件开始：{}",file);
+    public ResponseDto upload(@RequestParam MultipartFile file,String use) throws IOException {
+
         LOG.info(file.getOriginalFilename());
         LOG.info(String.valueOf(file.getSize()));
 
 
-
-
+        FileUseEnum useEnum = FileUseEnum.getByCode(use);
 
         String key = UuidUtil.getShortUuid();
         String fileName = file.getOriginalFilename();
         String suffix = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
-        String path = "teacher/" + key + "." + suffix;
+
+        String dir = useEnum.name().toUpperCase();
+        File fullDir = new File(FILE_PATH + dir);
+        if(!fullDir.exists()){
+            fullDir.mkdir();
+        }
+
+
+        String path = dir + File.separator + key + "." + suffix;
 
         String fullPath = FILE_PATH + path;
         File dest = new File(fullPath);
@@ -64,7 +72,7 @@ public class UploadController {
         fileDto.setName(fileName);
         fileDto.setSize(Math.toIntExact(file.getSize()));
         fileDto.setSuffix(suffix);
-        fileDto.setUse("");
+        fileDto.setUse(use);
 
 
         fileService.save(fileDto);

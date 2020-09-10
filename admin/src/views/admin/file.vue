@@ -42,62 +42,7 @@
             </tbody>
         </table>
 
-<!--        <div class="modal fade" tabindex="-1" role="dialog">-->
-<!--            <div class="modal-dialog" role="document">-->
-<!--                <div class="modal-content">-->
-<!--                    <div class="modal-header">-->
-<!--                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span-->
-<!--                            aria-hidden="true">&times;</span></button>-->
-<!--                        <h4 class="modal-title">表单</h4>-->
-<!--                    </div>-->
-<!--                    <div class="modal-body">-->
-<!--                        &lt;!&ndash;                    <p>One fine body&hellip;</p>&ndash;&gt;-->
-<!--                        <form class="form-horizontal">-->
 
-<!--                                    <div class="form-group">-->
-<!--                                        <label  class="col-sm-2 control-label">相对路径</label>-->
-<!--                                        <div class="col-sm-10">-->
-<!--                                            <input v-model="file.path" class="form-control"  placeholder="相对路径">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="form-group">-->
-<!--                                        <label  class="col-sm-2 control-label">文件名</label>-->
-<!--                                        <div class="col-sm-10">-->
-<!--                                            <input v-model="file.name" class="form-control"  placeholder="文件名">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="form-group">-->
-<!--                                        <label  class="col-sm-2 control-label">后缀</label>-->
-<!--                                        <div class="col-sm-10">-->
-<!--                                            <input v-model="file.suffix" class="form-control"  placeholder="后缀">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="form-group">-->
-<!--                                        <label  class="col-sm-2 control-label">大小</label>-->
-<!--                                        <div class="col-sm-10">-->
-<!--                                            <input v-model="file.size" class="form-control"  placeholder="大小">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                            <div class="form-group">-->
-<!--                                <label  class="col-sm-2 control-label">用途</label>-->
-<!--                                <div class="col-sm-10">-->
-<!--                                    <select v-model="file.use" class="form-control">-->
-<!--                                        <option v-for="o in FILE_USE" :value="o.key">{{o.value}}</option>-->
-<!--                                    </select>-->
-<!--                                </div>-->
-<!--                            </div>-->
-
-
-
-<!--                        </form>-->
-<!--                    </div>-->
-<!--                    <div class="modal-footer">-->
-<!--                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>-->
-<!--                        <button type="button" class="btn btn-primary" @click="save()">保存</button>-->
-<!--                    </div>-->
-<!--                </div>&lt;!&ndash; /.modal-content &ndash;&gt;-->
-<!--            </div>&lt;!&ndash; /.modal-dialog &ndash;&gt;-->
-<!--        </div>&lt;!&ndash; /.modal &ndash;&gt;-->
 
     </div>
 
@@ -124,14 +69,6 @@
         mounted() {
             let _this = this;
             _this.$parent.activeSidebar("file-file-sidebar");
-            // list(){
-            //     let _this = this;
-            //     _this.$ajax.get('http:127.0.0.1:9002/file/file/list').then((response)=>{
-            //         console.log("jieguo",response);
-            //     });
-            //     // http.get()
-            // }
-
 
             _this.list(1);
 
