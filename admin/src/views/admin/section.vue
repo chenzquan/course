@@ -159,7 +159,21 @@
                             <div class="form-group">
                                 <label  class="col-sm-2 control-label">视频</label>
                                 <div class="col-sm-10">
-                                    <input v-model="section.video" class="form-control"  placeholder="视频">
+
+                                    <file :text="'上传视频'"
+                                          :after-upload="afterUpload"
+                                          :input-id="'video-upload'"
+                                          :suffixs="['mp4']"
+                                          :use="FILE_USE.COURSE.key">
+                                    </file>
+                                    <div v-show="section.video" class="row">
+                                        <div class="col-md-9">
+                                            <video id="video" v-bind:src="section.video" controls="controls"></video>
+<!--                                            <video id="video" src="http://127.0.0.1:9000/file/f/COURSE/qyJhLjeF.mp4" controls="controls"></video>-->
+
+                                        </div>
+                                    </div>
+<!--                                    <input v-model="section.video" class="form-control"  placeholder="视频">-->
                                 </div>
                             </div>
                             <div class="form-group">
@@ -204,11 +218,12 @@
 
     import Pagination from '../../components/pagination.vue';
     // import Swal from 'sweetalert2';
+    import File from "../../components/file";
 
     export default {
         name: "business-section",
         components: {
-            Pagination
+            Pagination,File
         },
 
         data() {
@@ -216,6 +231,7 @@
                 sections: [],
                 section:{},
                 SECTION_CHARGE:SECTION_CHARGE,
+                FILE_USE:FILE_USE,
                 course:{},
                 chapter:{},
             }
@@ -265,6 +281,7 @@
                 let _this = this;
                 $(".modal").modal("show");
                 _this.section = $.extend({},section);
+                console.log("section",_this.section);
             },
 
             deleteData(id){
@@ -352,6 +369,19 @@
 
                 });
             },
+            afterUpload(resp) {
+                let _this = this;
+                let video = resp.content.path;
+                _this.section.video = video;
+                _this.getTime();
+            },
+
+
+            getTime(){
+                let _this = this;
+                let ele = document.getElementById("video");
+                _this.section.time = parseInt(ele.duration,10);
+            }
 
 
 
@@ -362,5 +392,14 @@
 
     }
 </script>
+
+
+<style scoped>
+    video{
+        width: 100%;
+        height: auto;
+        margin-top: 10px;
+    }
+</style>
 
 

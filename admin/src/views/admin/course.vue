@@ -142,7 +142,18 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">封面</label>
                                 <div class="col-sm-10">
-                                    <input v-model="course.image" class="form-control" placeholder="封面">
+                                    <file :text="'上传封面'"
+                                          :after-upload="afterUpload"
+                                          :input-id="'image-upload'"
+                                          :suffixs="['jpg','jpeg','png']"
+                                          :use="FILE_USE.COURSE.key">
+                                    </file>
+                                    <div v-show="course.image" class="row">
+                                        <div class="col-md-6">
+                                            <img v-bind:src="course.image" class="img-responsive">
+                                        </div>
+                                    </div>
+<!--                                    <input v-model="course.image" class="form-control" placeholder="封面">-->
                                 </div>
                             </div>
                             <div class="form-group">
@@ -275,12 +286,14 @@
 <script>
 
     import Pagination from '../../components/pagination.vue';
+    import File from "../../components/file";
     // import Swal from 'sweetalert2';
 
     export default {
         name: "business-course",
         components: {
-            Pagination
+            Pagination,
+            File
         },
 
         data() {
@@ -290,6 +303,7 @@
                 COURSE_LEVEL: COURSE_LEVEL,
                 COURSE_CHARGE: COURSE_CHARGE,
                 COURSE_STATUS: COURSE_STATUS,
+                FILE_USE:FILE_USE,
                 categorys:[],
                 tree:{},
                 sort:{
@@ -588,7 +602,14 @@
 
 
 
-            }
+            },
+
+
+            afterUpload(resp) {
+                let _this = this;
+                let image = resp.content.path;
+                _this.course.image = image;
+            },
 
 
         }
