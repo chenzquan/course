@@ -58,7 +58,7 @@
                                 大章
                             </button>
                             &nbsp;
-                            <button class="btn btn-white btn-xs btn-info btn-round" @click="editContent(course)">
+                            <button class="btn btn-white btn-xs btn-info btn-round" @click="toContent(course)">
                                 <!--                                <i class="ace-icon fa fa-pencil bigger-120"></i>-->
                                 内容
                             </button>
@@ -205,34 +205,75 @@
         </div><!-- /.modal -->
 
 
-        <div id="course-content-modal" class="modal fade" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">内容编辑</h4>
-                    </div>
-                    <div class="modal-body">
-                        <!--                    <p>One fine body&hellip;</p>-->
-                        <form class="form-horizontal">
+<!--        <div id="course-content-modal" class="modal fade" tabindex="-1" role="dialog" style="overflow:auto;">-->
+<!--            <div class="modal-dialog" role="document">-->
+<!--                <div class="modal-content">-->
+<!--                    <div class="modal-header">-->
+<!--                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span-->
+<!--                            aria-hidden="true">&times;</span></button>-->
+<!--                        <h4 class="modal-title">内容编辑</h4>-->
+<!--                    </div>-->
+<!--                    <div class="modal-body">-->
 
-                            <div class="form-group">
+<!--                        <file :text="'上传文件1'"-->
+<!--                              :after-upload="afterUploadContentFile"-->
+<!--                              :input-id="'content-file-upload'"-->
+<!--                              :suffixs="['jpg','jpeg','png']"-->
+<!--                              :use="FILE_USE.COURSE.key">-->
+<!--                        </file>-->
 
-                              <div class="col-lg-12">
-                                  <div id="content"></div>
-                              </div>
+<!--                        <table id="file-table" class="table table-bordered table-hover">-->
+<!--                            <thead>-->
+<!--                            <tr>-->
+<!--                                <th>名称</th>-->
+<!--                                <th>地址</th>-->
+<!--                                <th>大小</th>-->
+<!--                                <th>操作</th>-->
+<!--                            </tr>-->
+<!--                            </thead>-->
 
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-primary" @click="saveContent()">保存</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
+<!--                            <tbody>-->
+
+<!--                            <tr v-for="(f,i) in files" :key="f.id">-->
+<!--                                <td>{{f.name}}</td>-->
+<!--                                <td>{{f.url}}</td>-->
+<!--                                &lt;!&ndash;                <td>{{section.courseId}}</td>&ndash;&gt;-->
+<!--                                &lt;!&ndash;                <td>{{section.chapterId}}</td>&ndash;&gt;-->
+<!--                                <td>{{f.size | formatFileSize}}</td>-->
+
+
+<!--                                <td>-->
+
+<!--                                    <button class="btn btn-xs btn-white btn-warning" @click="delFile(f)">-->
+<!--                                        <i class="ace-icon fa fa-times red2"></i>-->
+<!--                                        删除-->
+<!--                                    </button>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                            </tbody>-->
+<!--                        </table>-->
+
+
+
+<!--                        &lt;!&ndash;                    <p>One fine body&hellip;</p>&ndash;&gt;-->
+<!--                        <form class="form-horizontal">-->
+
+<!--                            <div class="form-group">-->
+
+<!--                              <div class="col-lg-12">-->
+<!--                                  <div id="content"></div>-->
+<!--                              </div>-->
+
+<!--                            </div>-->
+<!--                        </form>-->
+<!--                    </div>-->
+<!--                    <div class="modal-footer">-->
+<!--                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>-->
+<!--                        <button type="button" class="btn btn-primary" @click="saveContent()">保存</button>-->
+<!--                    </div>-->
+<!--                </div>&lt;!&ndash; /.modal-content &ndash;&gt;-->
+<!--            </div>&lt;!&ndash; /.modal-dialog &ndash;&gt;-->
+<!--        </div>&lt;!&ndash; /.modal &ndash;&gt;-->
 
         <div id="course-sort-modal" class="modal fade" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
@@ -311,7 +352,8 @@
                     oldSort:0,
                     newSort:0
                 },
-                teachers:[]
+                teachers:[],
+                // files:[]
             }
         },
         mounted() {
@@ -372,7 +414,7 @@
                     _this.$ajax.delete(process.env.VUE_APP_SERVER + '/business/admin/course/delete/' + id).then((response) => {
                         Loading.hide();
                         let res = response.data;
-                        console.log("jieguo add", response);
+                        // console.log("jieguo add", response);
                         if (res.success) {
                             // $(".modal").modal("hide");
                             _this.list(1);
@@ -499,7 +541,6 @@
                     let res = response.data;
                     let categorys = res.content;
 
-
                     _this.tree.checkAllNodes(false);
 
                     //勾选查询到的分类
@@ -512,46 +553,7 @@
                 });
             },
 
-            editContent(course){
-                let _this = this;
-                let id = course.id;
-                _this.course = course;
 
-                $("#content").summernote({
-                    focus:true,
-                    height:300
-                });
-
-                //先清空历史文本
-                $("#content").summernote('code','');
-                Loading.show();
-
-                _this.$ajax.get(process.env.VUE_APP_SERVER + '/business/admin/course/find-content/' + id).then((response)=>{
-                    Loading.hide();
-                    let res = response.data;
-
-                    if(res.success){
-                        $("#course-content-modal").modal({backdrop:'static',keyboard:false});
-                        if(res.content){
-                            $("#content").summernote('code',res.content.content);
-                        }
-
-                        //定时保存
-                        let saveContentInterval = setInterval(function () {
-                            _this.saveContent();
-                        },5000);
-
-                        //关闭内容框时，清空自动保存任务
-                        $("#course-content-modal").on('hidden.bs.modal',function (e) {
-                            clearInterval(saveContentInterval);
-                        });
-
-                    }else{
-                        Toast.warning(res.message);
-                    }
-
-                });
-            },
 
             saveContent(){
                 let _this = this;
@@ -610,6 +612,17 @@
                 let image = resp.content.path;
                 _this.course.image = image;
             },
+
+
+            /**
+             * 点击【内容】
+             */
+            toContent(course) {
+                let _this = this;
+                SessionStorage.set(SESSION_KEY_COURSE, course);
+                _this.$router.push("/business/content");
+            },
+
 
 
         }

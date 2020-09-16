@@ -305,7 +305,7 @@
                     _this.${domain}
                 ).then((response) => {
                     let res = response.data;
-                    console.log("jieguo add", response);
+                    // console.log("jieguo add", response);
                     if(res.success){
                         $(".modal").modal("hide");
                         _this.list(1);

@@ -281,7 +281,7 @@
                 let _this = this;
                 $(".modal").modal("show");
                 _this.section = $.extend({},section);
-                console.log("section",_this.section);
+                // console.log("section",_this.section);
             },
 
             deleteData(id){
@@ -291,7 +291,7 @@
                     _this.$ajax.delete(process.env.VUE_APP_SERVER + '/business/admin/section/delete/' + id).then((response) => {
                         Loading.hide();
                         let res = response.data;
-                        console.log("jieguo add", response);
+                        // console.log("jieguo add", response);
                         if(res.success){
                             // $(".modal").modal("hide");
                             _this.list(1);
