@@ -54,6 +54,11 @@
 
                 let file = _this.$refs.file.files[0];
 
+                let key = hex_md5(file);
+                let key10 = parseInt(key,16);
+                let key62 = Tool._10to62(key10);
+
+
                 //判断 文件格式
 
                 let suffixs = _this.suffixs;
@@ -77,16 +82,29 @@
                 //文件分片
                 let shardSize = 20 * 1024 * 1024;  //以20MB为一个分片
 
-                let shardIndex = 1;
-                let start = shardSize * shardIndex; //当前分片启始 位置
+                let shardIndex = 2;  // 1 表示 第一个分片
+                let start = shardSize * (shardIndex - 1); //当前分片启始 位置
                 let end = Math.min(file.size,start+shardSize);//当前分片结束位置
                 let fileShard  = file.slice(start,end);
 
 
+                let size = file.size;
+
+                let shardToal = Math.ceil(size / shardSize);
+
 
                 // formData.append('file',document.querySelector('#file-upload-input').files[0]);
-                formData.append('file',fileShard);
+                formData.append('shard',fileShard);
+                formData.append("shardIndex",shardIndex);
+                formData.append("shardSize",shardSize);
+                formData.append("shardTotal",shardToal);
                 formData.append("use",_this.use);
+
+                formData.append("name",file.name);
+                formData.append("suffix",suffix);
+                formData.append("size",size);
+                formData.append("key",key62);
+
                 Loading.show();
                 _this.$ajax.post(process.env.VUE_APP_SERVER + '/file/admin/upload',formData).then((response)=>{
                     Loading.hide();

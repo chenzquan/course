@@ -4,7 +4,6 @@ import com.course.server.dto.FileDto;
 import com.course.server.dto.ResponseDto;
 import com.course.server.enums.FileUseEnum;
 import com.course.server.service.FileService;
-import com.course.server.util.UuidUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,17 +38,25 @@ public class UploadController {
 
 
     @PostMapping("/upload")
-    public ResponseDto upload(@RequestParam MultipartFile file,String use) throws IOException {
+    public ResponseDto upload(@RequestParam MultipartFile shard,
+                              String use,
+                              String name,
+                              String suffix,
+                              Integer size,
+                              Integer shardIndex,
+                              Integer shardSize,
+                              Integer shardTotal,
+                              String key) throws IOException {
 
-        LOG.info(file.getOriginalFilename());
-        LOG.info(String.valueOf(file.getSize()));
+//        LOG.info(shard.getOriginalFilename());
+//        LOG.info(String.valueOf(shard.getSize()));
 
 
         FileUseEnum useEnum = FileUseEnum.getByCode(use);
 
-        String key = UuidUtil.getShortUuid();
-        String fileName = file.getOriginalFilename();
-        String suffix = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
+
+//        String fileName = shard.getOriginalFilename();
+//        String suffix = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
 
         String dir = useEnum.name().toUpperCase();
         File fullDir = new File(FILE_PATH + dir);
@@ -62,19 +69,22 @@ public class UploadController {
 
         String fullPath = FILE_PATH + path;
         File dest = new File(fullPath);
-        file.transferTo(dest);
+        shard.transferTo(dest);
 
         LOG.info(dest.getAbsolutePath());
         LOG.info("保存文件记录开始");
 
         FileDto fileDto = new FileDto();
         fileDto.setPath(path);
-        fileDto.setName(fileName);
-        fileDto.setSize(Math.toIntExact(file.getSize()));
+        fileDto.setName(name);
+        fileDto.setSize(size);
         fileDto.setSuffix(suffix);
         fileDto.setUse(use);
 
-
+        fileDto.setShardIndex(shardIndex);
+        fileDto.setShardSize(shardSize);
+        fileDto.setShardTotal(shardTotal);
+        fileDto.setKey(key);
         fileService.save(fileDto);
 
         ResponseDto responseDto = new ResponseDto();
@@ -82,6 +92,9 @@ public class UploadController {
         responseDto.setContent(fileDto);
         return responseDto;
     }
+
+
+
 
 
 }
