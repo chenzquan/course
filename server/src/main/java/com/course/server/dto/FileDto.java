@@ -60,6 +60,10 @@ public class FileDto{
         private Date updatedAt;
 
 
+    /**
+     *  base64
+     */
+        private String shard;
 
         private Integer shardIndex;
 
@@ -160,6 +164,17 @@ public class FileDto{
         }
 
 
+
+
+    public String getShard() {
+        return shard;
+    }
+
+    public void setShard(String shard) {
+        this.shard = shard;
+    }
+
+
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("FileDto{");
@@ -171,6 +186,7 @@ public class FileDto{
         sb.append(", use='").append(use).append('\'');
         sb.append(", createdAt=").append(createdAt);
         sb.append(", updatedAt=").append(updatedAt);
+        sb.append(", shard='").append(shard).append('\'');
         sb.append(", shardIndex=").append(shardIndex);
         sb.append(", shardSize=").append(shardSize);
         sb.append(", shardTotal=").append(shardTotal);
@@ -178,6 +194,7 @@ public class FileDto{
         sb.append('}');
         return sb.toString();
     }
+
 }
 
 

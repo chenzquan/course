@@ -1,6 +1,7 @@
 package com.course.server.config;
 
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.support.spring.PropertyPreFilters;
 import com.course.server.util.UuidUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -22,8 +23,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
-
-import com.alibaba.fastjson.support.spring.PropertyPreFilters;
 
 @Aspect
 @Component
@@ -110,7 +109,7 @@ public class LogAspect {
         }
 
         //排除字段、敏感字段或太长的字段不显示
-        String [] excludeProperties = {};
+        String [] excludeProperties = {"shard"};
         PropertyPreFilters filters = new PropertyPreFilters();
         PropertyPreFilters.MySimplePropertyPreFilter excludefilter = filters.addFilter();
         excludefilter.addExcludes(excludeProperties);
@@ -127,7 +126,7 @@ public class LogAspect {
         Object result = proceedingJoinPoint.proceed();
 
 
-        String [] excludeProperties = {"password"};
+        String [] excludeProperties = {"password","shard"};
         PropertyPreFilters filters = new PropertyPreFilters();
         PropertyPreFilters.MySimplePropertyPreFilter excludefilter = filters.addFilter();
 

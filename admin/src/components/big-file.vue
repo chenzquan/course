@@ -50,7 +50,7 @@
         methods:{
             uploadFile(){
                 let _this = this;
-                let formData = new window.FormData();
+                // let formData = new window.FormData();
 
                 let file = _this.$refs.file.files[0];
 
@@ -82,7 +82,7 @@
                 //文件分片
                 let shardSize = 20 * 1024 * 1024;  //以20MB为一个分片
 
-                let shardIndex = 2;  // 1 表示 第一个分片
+                let shardIndex = 1;  // 1 表示 第一个分片
                 let start = shardSize * (shardIndex - 1); //当前分片启始 位置
                 let end = Math.min(file.size,start+shardSize);//当前分片结束位置
                 let fileShard  = file.slice(start,end);
@@ -94,27 +94,49 @@
 
 
                 // formData.append('file',document.querySelector('#file-upload-input').files[0]);
-                formData.append('shard',fileShard);
-                formData.append("shardIndex",shardIndex);
-                formData.append("shardSize",shardSize);
-                formData.append("shardTotal",shardToal);
-                formData.append("use",_this.use);
+                // formData.append('shard',fileShard);
+                // formData.append("shardIndex",shardIndex);
+                // formData.append("shardSize",shardSize);
+                // formData.append("shardTotal",shardToal);
+                // formData.append("use",_this.use);
+                //
+                // formData.append("name",file.name);
+                // formData.append("suffix",suffix);
+                // formData.append("size",size);
+                // formData.append("key",key62);
 
-                formData.append("name",file.name);
-                formData.append("suffix",suffix);
-                formData.append("size",size);
-                formData.append("key",key62);
+                let fileReader = new FileReader();
 
-                Loading.show();
-                _this.$ajax.post(process.env.VUE_APP_SERVER + '/file/admin/upload',formData).then((response)=>{
-                    Loading.hide();
-                    let resp = response.data;
-                    let image = resp.content;
-                    // console.log("image",image);
-                    // _this.teacher.image = image;
-                    _this.afterUpload(resp);
-                    $("#" + _this.inputId + "-input").val("");
-                });
+                fileReader.onload = function(e){
+                    let base64 = e.target.result;
+                    console.log("base64: ",base64);
+
+                    let param = {
+                        'shard':base64,
+                        'shardIndex':shardIndex,
+                        'shardSize':shardSize,
+                        'shardTotal':shardToal,
+                        'use':_this.use,
+                        'name':file.name,
+                        'suffix':suffix,
+                        'size':file.size,
+                        'key':key62
+                    };
+
+                    Loading.show();
+                    _this.$ajax.post(process.env.VUE_APP_SERVER + '/file/admin/upload',param).then((response)=>{
+                        Loading.hide();
+                        let resp = response.data;
+                        let image = resp.content;
+                        // console.log("image",image);
+                        // _this.teacher.image = image;
+                        _this.afterUpload(resp);
+                        $("#" + _this.inputId + "-input").val("");
+                    });
+
+                };
+                fileReader.readAsDataURL(fileShard);
+
             },
 
             selectFile(){
