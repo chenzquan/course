@@ -80,7 +80,7 @@
 
 
                 //文件分片
-                let shardSize = 20 * 1024 * 1024;  //以20MB为一个分片
+                let shardSize = 5 * 1024 * 1024;  //以20MB为一个分片
 
                 let shardIndex = 1;  // 1 表示 第一个分片
 
@@ -129,12 +129,13 @@
                             _this.upload(param);
                         } else {
                             _this.afterUpload(resp);
+                            $("#" + _this.inputId + "-input").val("");
                         }
 
                         // console.log("image",image);
                         // _this.teacher.image = image;
 
-                        $("#" + _this.inputId + "-input").val("");
+
                     });
 
                 };
