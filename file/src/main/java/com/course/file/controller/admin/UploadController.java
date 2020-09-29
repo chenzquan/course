@@ -152,5 +152,18 @@ public class UploadController {
 
 
 
+    @GetMapping("/check/{key}")
+    public ResponseDto check(@PathVariable String key){
+        LOG.info("检查上传分片开始：{}",key);
+        ResponseDto responseDto = new ResponseDto();
+
+        FileDto fileDto = fileService.findByKey(key);
+        responseDto.setContent(fileDto);
+        return responseDto;
+
+    }
+
+
+
 
 }
