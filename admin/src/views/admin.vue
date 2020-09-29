@@ -383,12 +383,12 @@
 
                         <ul class="submenu">
                             <li class="">
-                                <a href="#" class="dropdown-toggle">
+                                <router-link to="/system/user" class="dropdown-toggle">
                                     <i class="menu-icon fa fa-caret-right"></i>
 
                                     用户管理
 
-                                </a>
+                                </router-link>
 
 
                             </li>

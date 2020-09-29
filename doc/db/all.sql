@@ -202,3 +202,16 @@ alter table `file` add column (`key` varchar (32)comment '文件标识');
 alter talbe `file` add unique key key_unique(`key`);
 
 
+
+drop table if exists `user`;
+create table `user`(
+    `id` char (8) not null default '' comment 'id',
+    `login_name` varchar (50) not null comment '登录名',
+    `name` varchar (50) comment '呢称',
+    `password` char (32) not null comment '密码',
+    primary key (`id`),
+    unique key `login_name_unique` (`login_name`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 comment='用户';
+
+insert into `user` (id,login_name,name,password) values ('10000000','test','测试','32121212312313213');
+
