@@ -142,12 +142,19 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">封面</label>
                                 <div class="col-sm-10">
-                                    <file :text="'上传封面'"
-                                          :after-upload="afterUpload"
-                                          :input-id="'image-upload'"
-                                          :suffixs="['jpg','jpeg','png']"
-                                          :use="FILE_USE.COURSE.key">
-                                    </file>
+<!--                                    <file :text="'上传封面'"-->
+<!--                                          :after-upload="afterUpload"-->
+<!--                                          :input-id="'image-upload'"-->
+<!--                                          :suffixs="['jpg','jpeg','png']"-->
+<!--                                          :use="FILE_USE.COURSE.key">-->
+<!--                                    </file>-->
+
+                                    <big-file :text="'上传封面'"
+                                              :after-upload="afterUpload"
+                                              :input-id="'image-upload'"
+                                              :suffixs="['jpg','jpeg','png']"
+                                              :use="FILE_USE.COURSE.key">
+                                    </big-file>
                                     <div v-show="course.image" class="row">
                                         <div class="col-md-6">
                                             <img v-bind:src="course.image" class="img-responsive">
@@ -328,13 +335,15 @@
 
     import Pagination from '../../components/pagination.vue';
     import File from "../../components/file";
+    import BigFile from '../../components/big-file.vue';
     // import Swal from 'sweetalert2';
 
     export default {
         name: "business-course",
         components: {
             Pagination,
-            File
+            File,
+            BigFile
         },
 
         data() {

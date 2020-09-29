@@ -70,6 +70,7 @@ public class UploadController {
 
         String path = new StringBuffer(dir)
                 .append(File.separator)
+//                .append("/")
                 .append(key)
                 .append(".")
                 .append(suffix)
@@ -158,6 +159,9 @@ public class UploadController {
         ResponseDto responseDto = new ResponseDto();
 
         FileDto fileDto = fileService.findByKey(key);
+        if(fileDto != null){
+            fileDto.setPath(FILE_DOMAIN + fileDto.getPath());
+        }
         responseDto.setContent(fileDto);
         return responseDto;
 

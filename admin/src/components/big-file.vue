@@ -54,9 +54,9 @@
 
                 let file = _this.$refs.file.files[0];
 
-                let key = hex_md5(file);
-                let key10 = parseInt(key,16);
-                let key62 = Tool._10to62(key10);
+                let key = hex_md5(file.name + file.size + file.type);
+                // let key10 = parseInt(key,16);
+                // let key62 = Tool._10to62(key10);
 
 
                 //判断 文件格式
@@ -99,7 +99,7 @@
                     'name':file.name,
                     'suffix':suffix,
                     'size':file.size,
-                    'key':key62
+                    'key':key
                 };
                 _this.check(param);
 
@@ -145,19 +145,26 @@
                 let fileShard = _this.getFileShard(shardSize, shardIndex);
                 //将图片 转为base64
                 let fileReader = new FileReader();
+
+                Progress.show(parseInt((shardIndex - 1) * 100 / shardTotal));
+
                 fileReader.onload = function (e) {
                     let base64 = e.target.result;
                     param.shard = base64;
-                    Loading.show();
+                    // Loading.show();
                     _this.$ajax.post(process.env.VUE_APP_SERVER + '/file/admin/upload', param).then((response) => {
-                        Loading.hide();
+                        // Loading.hide();
                         let resp = response.data;
                         console.log("上传成功",resp);
+
+                        Progress.show(parseInt(shardIndex  * 100 / shardTotal));
+
                         if (shardIndex < shardTotal) {
                             //上传下一个分片
                             param.shardIndex = param.shardIndex + 1;
                             _this.upload(param);
                         } else {
+                            Progress.hide();
                             _this.afterUpload(resp);
                             $("#" + _this.inputId + "-input").val("");
                         }
