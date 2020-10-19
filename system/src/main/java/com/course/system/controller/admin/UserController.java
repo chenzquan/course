@@ -1,20 +1,17 @@
 package com.course.system.controller.admin;
 
 
-import com.course.server.domain.User;
-
-import com.course.server.dto.UserDto;
 import com.course.server.dto.PageDto;
 import com.course.server.dto.ResponseDto;
+import com.course.server.dto.UserDto;
 import com.course.server.service.UserService;
-
 import com.course.server.util.ValidatorUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 
 @RestController
@@ -43,6 +40,8 @@ public class UserController {
     @PostMapping("/save")
     public ResponseDto save(@RequestBody UserDto userDto){
 
+        userDto.setPassword(DigestUtils.md5DigestAsHex(userDto.getPassword().getBytes()));
+
         // 保存校验
 
         ValidatorUtil.require(userDto.getLoginName(),"登录名");
@@ -52,7 +51,21 @@ public class UserController {
 
 
         ResponseDto responseDto = new ResponseDto();
-        UserService.save(userDto);
+        UserService.save (userDto);
+        responseDto.setContent(userDto);
+        return responseDto;
+    }
+
+
+    @PostMapping("/save-password")
+    public ResponseDto savePassword(@RequestBody UserDto userDto){
+
+        userDto.setPassword(DigestUtils.md5DigestAsHex(userDto.getPassword().getBytes()));
+
+
+
+        ResponseDto responseDto = new ResponseDto();
+        UserService.savePassword (userDto);
         responseDto.setContent(userDto);
         return responseDto;
     }
