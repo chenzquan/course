@@ -4,6 +4,8 @@
 SESSION_KEY_COURSE = "SESSION_KEY_COURSE"; //课程管理页面点击章管理时，保存课程信息
 SESSION_KEY_CHAPTER = "SESSION_KEY_CHAPTER"; //大章管理页面点击 小节时，保存大章信息
 
+SESSION_KEY_LOGIN_USER = "SESSION_KEY_LOGIN_USER"; //登陆信息
+
 SessionStorage = {
 
   get : function (key) {

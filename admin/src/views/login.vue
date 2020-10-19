@@ -272,7 +272,9 @@
                     let res = response.data;
                     // console.log("jieguo add", response);
                     if(res.success){
-                        console.log(response.content);
+                        console.log("response.content",res.content);
+                        // SessionStorage.set("USER",res.content);
+                        Tool.setLoginUser(res.content);
                         _this.$router.push("/welcome");
                     }else{
                         Toast.warning(res.message);

@@ -61,6 +61,20 @@ Tool = {
         return arr.join('');
     },
 
+    /**
+     * 保存登录用户信息
+     */
+    setLoginUser: function (loginUser) {
+        SessionStorage.set(SESSION_KEY_LOGIN_USER, loginUser);
+    },
+
+    /**
+     * 获取登录用户信息
+     */
+    getLoginUser: function () {
+        return SessionStorage.get(SESSION_KEY_LOGIN_USER) || {};
+    },
+
 
     // dateFormat: function (format,date) {
     //     let result;
