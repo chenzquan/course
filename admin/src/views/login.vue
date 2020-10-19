@@ -34,14 +34,14 @@
                                             <fieldset>
                                                 <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="用户名" />
+															<input v-model="user.loginName" type="text" class="form-control" placeholder="用户名" />
 															<i class="ace-icon fa fa-user"></i>
 														</span>
                                                 </label>
 
                                                 <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="密码" />
+															<input v-model="user.password" type="password" class="form-control" placeholder="密码" />
 															<i class="ace-icon fa fa-lock"></i>
 														</span>
                                                 </label>
@@ -253,10 +253,81 @@
         // components: {
         //   HelloWorld
         // }
+
+
+        data:function(){
+          return {
+              user:{},
+          }
+        },
+
+
         methods:{
             login(){
-                this.$router.push("/welcome");
-            }
+                let _this = this;
+                _this.user.password = hex_md5(_this.user.password + KEY);
+                _this.$ajax.post(process.env.VUE_APP_SERVER + '/system/admin/user/login',
+                    _this.user
+                ).then((response) => {
+                    let res = response.data;
+                    // console.log("jieguo add", response);
+                    if(res.success){
+                        console.log(response.content);
+                        _this.$router.push("/welcome");
+                    }else{
+                        Toast.warning(res.message);
+                    }
+                    // _this.users = response.data.list;
+                    // _this.$refs.pagination.render(page, response.data.total);
+
+                });
+
+
+            },
+
+            save(){
+                let _this = this;
+
+                if (1!=1
+                    || !Validator.request(_this.user.loginName,"登录名")
+                    || !Validator.length(_this.user.loginName,"登录名",1,50)
+                    || !Validator.length(_this.user.name,"呢称",1,50)
+                    || !Validator.request(_this.user.password,"密码")
+                ){
+                    return;
+                }
+
+                //保存校验
+                // if (!Validator.request(_this.user.name,"名称")
+                //     || !Validator.request(_this.user.courseId,"课程ID")
+                //     || !Validator.length(_this.user.courseId,"课程ID",1,8)){
+                //     return;
+                // }
+
+                _this.user.password = hex_md5(_this.user.password + KEY);
+
+
+
+                _this.$ajax.post(process.env.VUE_APP_SERVER + '/system/admin/user/save',
+                    _this.user
+                ).then((response) => {
+                    let res = response.data;
+                    // console.log("jieguo add", response);
+                    if(res.success){
+                        $(".modal").modal("hide");
+                        _this.list(1);
+                        Toast.success("保存成功!");
+                    }else{
+                        Toast.warning(res.message);
+                    }
+                    // _this.users = response.data.list;
+                    // _this.$refs.pagination.render(page, response.data.total);
+
+                });
+            },
+
+
+
         },
         mounted() {
             $('body').removeClass('no-skin');
