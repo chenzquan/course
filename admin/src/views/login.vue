@@ -266,8 +266,21 @@
         methods:{
             login(){
                 let _this = this;
-                let passwordShow = _this.user.password;
-                _this.user.password = hex_md5(_this.user.password + KEY);
+
+                // 将 明文 存储到缓存 中
+                // let passwordShow = _this.user.password;
+
+
+                // 如果 密码是从缓存带出来的，则不需要重新加密
+                let md5 = hex_md5(_this.user.password);
+
+                let rememberUser = LocalStorage.get(LOCAL_KEY_REMEMBER_USER) || {};
+
+                if(md5 !== rememberUser.md5){
+                    _this.user.password = hex_md5(_this.user.password + KEY);
+                }
+
+
                 Loading.show();
                 _this.$ajax.post(process.env.VUE_APP_SERVER + '/system/admin/user/login',
                     _this.user
@@ -279,11 +292,17 @@
                         console.log("response.content",res.content);
                         // SessionStorage.set("USER",res.content);
                         let loginUser = res.content;
+
+
                         Tool.setLoginUser(res.content);
                         if(_this.remember){
+
+                            // 如果 勾选记住我， 则将用户名密码保存到本地缓存，
+                            let md5 = hex_md5(_this.user.password);
                             LocalStorage.set(LOCAL_KEY_REMEMBER_USER,{
                                 loginName:loginUser.loginName,
-                                password:passwordShow
+                                password:_this.user.password,
+                                md5:md5
                             });
                         }else{
                             LocalStorage.set(LOCAL_KEY_REMEMBER_USER,null);
