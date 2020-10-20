@@ -34,27 +34,42 @@
                                             <fieldset>
                                                 <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input v-model="user.loginName" type="text" class="form-control" placeholder="用户名" />
+															<input v-model="user.loginName" type="text"
+                                                                   class="form-control" placeholder="用户名"/>
 															<i class="ace-icon fa fa-user"></i>
 														</span>
                                                 </label>
 
                                                 <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input v-model="user.password" type="password" class="form-control" placeholder="密码" />
+															<input v-model="user.password" type="password"
+                                                                   class="form-control" placeholder="密码"/>
 															<i class="ace-icon fa fa-lock"></i>
 														</span>
+                                                </label>
+
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                            <div class="input-group">
+                              <input v-model="user.imageCode" type="text" class="form-control" placeholder="验证码">
+                              <span class="input-group-addon" id="basic-addon2">
+                                <img v-on:click="loadImageCode()" id="image-code" alt="验证码"/>
+                              </span>
+                            </div>
+                          </span>
                                                 </label>
 
                                                 <div class="space"></div>
 
                                                 <div class="clearfix">
                                                     <label class="inline">
-                                                        <input v-model="remember" type="checkbox" class="ace" />
+                                                        <input v-model="remember" type="checkbox" class="ace"/>
                                                         <span class="lbl"> 记住我</span>
                                                     </label>
 
-                                                    <button type="button" class="width-35 pull-right btn btn-sm btn-primary" @click="login()">
+                                                    <button type="button"
+                                                            class="width-35 pull-right btn btn-sm btn-primary"
+                                                            @click="login()">
                                                         <i class="ace-icon fa fa-key"></i>
                                                         <span class="bigger-110">登录</span>
                                                     </button>
@@ -120,13 +135,15 @@
                                             <fieldset>
                                                 <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="email" class="form-control" placeholder="Email" />
+															<input type="email" class="form-control"
+                                                                   placeholder="Email"/>
 															<i class="ace-icon fa fa-envelope"></i>
 														</span>
                                                 </label>
 
                                                 <div class="clearfix">
-                                                    <button type="button" class="width-35 pull-right btn btn-sm btn-danger">
+                                                    <button type="button"
+                                                            class="width-35 pull-right btn btn-sm btn-danger">
                                                         <i class="ace-icon fa fa-lightbulb-o"></i>
                                                         <span class="bigger-110">Send Me!</span>
                                                     </button>
@@ -159,34 +176,38 @@
                                             <fieldset>
                                                 <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="email" class="form-control" placeholder="Email" />
+															<input type="email" class="form-control"
+                                                                   placeholder="Email"/>
 															<i class="ace-icon fa fa-envelope"></i>
 														</span>
                                                 </label>
 
                                                 <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="Username" />
+															<input type="text" class="form-control"
+                                                                   placeholder="Username"/>
 															<i class="ace-icon fa fa-user"></i>
 														</span>
                                                 </label>
 
                                                 <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="Password" />
+															<input type="password" class="form-control"
+                                                                   placeholder="Password"/>
 															<i class="ace-icon fa fa-lock"></i>
 														</span>
                                                 </label>
 
                                                 <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="Repeat password" />
+															<input type="password" class="form-control"
+                                                                   placeholder="Repeat password"/>
 															<i class="ace-icon fa fa-retweet"></i>
 														</span>
                                                 </label>
 
                                                 <label class="block">
-                                                    <input type="checkbox" class="ace" />
+                                                    <input type="checkbox" class="ace"/>
                                                     <span class="lbl">
 															I accept the
 															<a href="#">User Agreement</a>
@@ -201,7 +222,8 @@
                                                         <span class="bigger-110">Reset</span>
                                                     </button>
 
-                                                    <button type="button" class="width-65 pull-right btn btn-sm btn-success">
+                                                    <button type="button"
+                                                            class="width-65 pull-right btn btn-sm btn-success">
                                                         <span class="bigger-110">Register</span>
 
                                                         <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
@@ -222,7 +244,7 @@
                         </div><!-- /.position-relative -->
 
                         <div class="navbar-fixed-top align-right">
-                            <br />
+                            <br/>
                             &nbsp;
                             <a id="btn-login-dark" href="#">Dark</a>
                             &nbsp;
@@ -255,16 +277,16 @@
         // }
 
 
-        data:function(){
-          return {
-              user:{},
-              remember:true
-          }
+        data: function () {
+            return {
+                user: {},
+                remember: true
+            }
         },
 
 
-        methods:{
-            login(){
+        methods: {
+            login() {
                 let _this = this;
 
                 // 将 明文 存储到缓存 中
@@ -276,7 +298,7 @@
 
                 let rememberUser = LocalStorage.get(LOCAL_KEY_REMEMBER_USER) || {};
 
-                if(md5 !== rememberUser.md5){
+                if (md5 !== rememberUser.md5) {
                     _this.user.password = hex_md5(_this.user.password + KEY);
                 }
 
@@ -288,28 +310,28 @@
                     Loading.hide();
                     let res = response.data;
                     // console.log("jieguo add", response);
-                    if(res.success){
-                        console.log("response.content",res.content);
+                    if (res.success) {
+                        console.log("response.content", res.content);
                         // SessionStorage.set("USER",res.content);
                         let loginUser = res.content;
 
 
                         Tool.setLoginUser(res.content);
-                        if(_this.remember){
+                        if (_this.remember) {
 
                             // 如果 勾选记住我， 则将用户名密码保存到本地缓存，
                             let md5 = hex_md5(_this.user.password);
-                            LocalStorage.set(LOCAL_KEY_REMEMBER_USER,{
-                                loginName:loginUser.loginName,
-                                password:_this.user.password,
-                                md5:md5
+                            LocalStorage.set(LOCAL_KEY_REMEMBER_USER, {
+                                loginName: loginUser.loginName,
+                                password: _this.user.password,
+                                md5: md5
                             });
-                        }else{
-                            LocalStorage.set(LOCAL_KEY_REMEMBER_USER,null);
+                        } else {
+                            LocalStorage.set(LOCAL_KEY_REMEMBER_USER, null);
                         }
 
                         _this.$router.push("/welcome");
-                    }else{
+                    } else {
                         Toast.warning(res.message);
                     }
                     // _this.users = response.data.list;
@@ -320,15 +342,15 @@
 
             },
 
-            save(){
+            save() {
                 let _this = this;
 
-                if (1!=1
-                    || !Validator.request(_this.user.loginName,"登录名")
-                    || !Validator.length(_this.user.loginName,"登录名",1,50)
-                    || !Validator.length(_this.user.name,"呢称",1,50)
-                    || !Validator.request(_this.user.password,"密码")
-                ){
+                if (1 != 1
+                    || !Validator.request(_this.user.loginName, "登录名")
+                    || !Validator.length(_this.user.loginName, "登录名", 1, 50)
+                    || !Validator.length(_this.user.name, "呢称", 1, 50)
+                    || !Validator.request(_this.user.password, "密码")
+                ) {
                     return;
                 }
 
@@ -342,17 +364,16 @@
                 _this.user.password = hex_md5(_this.user.password + KEY);
 
 
-
                 _this.$ajax.post(process.env.VUE_APP_SERVER + '/system/admin/user/save',
                     _this.user
                 ).then((response) => {
                     let res = response.data;
                     // console.log("jieguo add", response);
-                    if(res.success){
+                    if (res.success) {
                         $(".modal").modal("hide");
                         _this.list(1);
                         Toast.success("保存成功!");
-                    }else{
+                    } else {
                         Toast.warning(res.message);
                     }
                     // _this.users = response.data.list;
@@ -361,6 +382,14 @@
                 });
             },
 
+            /**
+             * 加载图形验证码
+             */
+            loadImageCode: function () {
+                let _this = this;
+                _this.imageCodeToken = Tool.uuid(8);
+                $('#image-code').attr('src', process.env.VUE_APP_SERVER + '/system/admin/kaptcha/image-code/' + _this.imageCodeToken);
+            },
 
 
         },
@@ -370,15 +399,19 @@
             $('body').attr('class', 'login-layout light-login');
 
             let rememberUser = LocalStorage.get(LOCAL_KEY_REMEMBER_USER);
-            if(rememberUser){
+            if (rememberUser) {
                 _this.user = rememberUser;
             }
+
+            _this.loadImageCode();
         }
 
 
     }
 </script>
 
-<style>
-
+<style scoped>
+    .input-group-addon {
+        padding: 0;
+    }
 </style>
