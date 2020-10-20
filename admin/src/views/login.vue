@@ -333,6 +333,8 @@
                         _this.$router.push("/welcome");
                     } else {
                         Toast.warning(res.message);
+                        _this.user.password = "";
+                        _this.loadImageCode();
                     }
                     // _this.users = response.data.list;
                     // _this.$refs.pagination.render(page, response.data.total);
@@ -375,8 +377,7 @@
                         Toast.success("保存成功!");
                     } else {
                         Toast.warning(res.message);
-                        _this.user.password = "";
-                        _this.loadImageCode();
+
                     }
                     // _this.users = response.data.list;
                     // _this.$refs.pagination.render(page, response.data.total);
