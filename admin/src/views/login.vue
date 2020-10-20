@@ -266,9 +266,11 @@
             login(){
                 let _this = this;
                 _this.user.password = hex_md5(_this.user.password + KEY);
+                Loading.show();
                 _this.$ajax.post(process.env.VUE_APP_SERVER + '/system/admin/user/login',
                     _this.user
                 ).then((response) => {
+                    Loading.hide();
                     let res = response.data;
                     // console.log("jieguo add", response);
                     if(res.success){
