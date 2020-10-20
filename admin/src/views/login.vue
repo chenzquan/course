@@ -50,7 +50,7 @@
 
                                                 <div class="clearfix">
                                                     <label class="inline">
-                                                        <input type="checkbox" class="ace" />
+                                                        <input v-model="remember" type="checkbox" class="ace" />
                                                         <span class="lbl"> 记住我</span>
                                                     </label>
 
@@ -258,6 +258,7 @@
         data:function(){
           return {
               user:{},
+              remember:true
           }
         },
 
@@ -265,6 +266,7 @@
         methods:{
             login(){
                 let _this = this;
+                let passwordShow = _this.user.password;
                 _this.user.password = hex_md5(_this.user.password + KEY);
                 Loading.show();
                 _this.$ajax.post(process.env.VUE_APP_SERVER + '/system/admin/user/login',
@@ -276,7 +278,17 @@
                     if(res.success){
                         console.log("response.content",res.content);
                         // SessionStorage.set("USER",res.content);
+                        let loginUser = res.content;
                         Tool.setLoginUser(res.content);
+                        if(_this.remember){
+                            LocalStorage.set(LOCAL_KEY_REMEMBER_USER,{
+                                loginName:loginUser.loginName,
+                                password:passwordShow
+                            });
+                        }else{
+                            LocalStorage.set(LOCAL_KEY_REMEMBER_USER,null);
+                        }
+
                         _this.$router.push("/welcome");
                     }else{
                         Toast.warning(res.message);
@@ -334,8 +346,14 @@
 
         },
         mounted() {
+            let _this = this;
             $('body').removeClass('no-skin');
             $('body').attr('class', 'login-layout light-login');
+
+            let rememberUser = LocalStorage.get(LOCAL_KEY_REMEMBER_USER);
+            if(rememberUser){
+                _this.user = rememberUser;
+            }
         }
 
 
