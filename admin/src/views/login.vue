@@ -302,7 +302,7 @@
                     _this.user.password = hex_md5(_this.user.password + KEY);
                 }
 
-
+                _this.user.imageCodeToken = _this.imageCodeToken;
                 Loading.show();
                 _this.$ajax.post(process.env.VUE_APP_SERVER + '/system/admin/user/login',
                     _this.user
