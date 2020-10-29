@@ -311,7 +311,7 @@
                     let res = response.data;
                     // console.log("jieguo add", response);
                     if (res.success) {
-                        console.log("response.content", res.content);
+                        console.log("登录成功：", res.content);
                         // SessionStorage.set("USER",res.content);
                         let loginUser = res.content;
 
