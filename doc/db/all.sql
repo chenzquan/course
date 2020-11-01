@@ -199,7 +199,7 @@ alter table `file` add column (`shard_index` int comment '已上传分片');
 alter table `file` add column (`shard_size` int comment '分片大小|B');
 alter table `file` add column (`shard_total` int comment '分片总数');
 alter table `file` add column (`key` varchar (32)comment '文件标识');
-alter talbe `file` add unique key key_unique(`key`);
+alter table `file` add unique key key_unique(`key`);
 
 
 
@@ -215,3 +215,27 @@ create table `user`(
 
 insert into `user` (id,login_name,name,password) values ('10000000','test','测试','32121212312313213');
 
+
+
+drop table if exists `resource`;
+create table `resource`(
+    `id` char(8) not null default '' comment 'id',
+    `name` varchar (100) not null comment '名称|菜单或按钮',
+    `page` varchar (50) null comment '页面|路由',
+    `request` varchar (200) null comment '请求|接口',
+    `parent` char (6) comment '父id',
+    primary key (`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 comment='资源';
+
+insert into `resource` (id,name,page,request,parent) values ('01','系统管理',null,null,null);
+insert into `resource` (id,name,page,request,parent) values ('0101','用户管理','/system/user',null,'01');
+insert into `resource` (id,name,page,request,parent) values ('010101','保存',null,'["/system/admin/user/list","/system/admin/user/save"]','0101');
+insert into `resource` (id,name,page,request,parent) values ('010102','删除',null,'["/system/admin/user/delete"]','0101');
+
+insert into `resource` (id,name,page,request,parent) values ('010103','重置密码',null,'["/system/admin/user/save-password"]','0101');
+insert into `resource` (id,name,page,request,parent) values ('0102','资源管理','/system/respirce',null,'01');
+
+
+insert into `resource` (id,name,page,request,parent) values ('010201','保存/显示',null,'["/system/admin/resource"]','0102');
+insert into `resource` (id,name,page,request,parent) values ('0103','角色管理','/system/role',null,'01');
+insert into `resource` (id,name,page,request,parent) values ('010301','角色/权限管理',null,'["/system/admin/role"]','0103');

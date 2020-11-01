@@ -18,6 +18,9 @@ import Content from './views/admin/content.vue'
 import User from "./views/admin/user.vue"
 
 
+import Resource from './views/admin/resource.vue'
+
+
 Vue.use(Router);
 
 //路由 子路由
@@ -74,6 +77,10 @@ export default new Router({
             path: 'system/user',
             name:"system/user",
             component:User
+        },{
+            path: 'system/resource',
+            name:"system/resource",
+            component:Resource
         }]
     }]
 })

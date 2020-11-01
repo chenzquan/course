@@ -382,22 +382,18 @@
                         <b class="arrow"></b>
 
                         <ul class="submenu">
-                            <li class="">
+                            <li class="" id="system-user-sidebar">
                                 <router-link to="/system/user" class="dropdown-toggle">
                                     <i class="menu-icon fa fa-caret-right"></i>
-
                                     用户管理
-
                                 </router-link>
-
-
                             </li>
 
                             <li class="">
-                                <a href="typography.html">
+                                <router-link to="/system/resource" id="system-resource-sidebar">
                                     <i class="menu-icon fa fa-caret-right"></i>
-                                    权限管理
-                                </a>
+                                   资源管理
+                                </router-link>
 
                                 <b class="arrow"></b>
                             </li>
