@@ -399,6 +399,16 @@
                             </li>
 
 
+                            <li class="">
+                                <router-link to="/system/role" id="system-role-sidebar">
+                                    <i class="menu-icon fa fa-caret-right"></i>
+                                    角色管理
+                                </router-link>
+
+                                <b class="arrow"></b>
+                            </li>
+
+
                         </ul>
                     </li>
 
