@@ -1,20 +1,16 @@
 package com.course.system.controller.admin;
 
 
-import com.course.server.domain.Role;
-
-import com.course.server.dto.RoleDto;
 import com.course.server.dto.PageDto;
 import com.course.server.dto.ResponseDto;
+import com.course.server.dto.RoleDto;
 import com.course.server.service.RoleService;
-
 import com.course.server.util.ValidatorUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 
 @RestController
@@ -22,7 +18,9 @@ import java.util.List;
 public class RoleController {
 
     @Resource
-    private RoleService RoleService;
+    private RoleService roleService;
+
+
 
     private static final Logger LOG = LoggerFactory.getLogger(RoleController.class);
 
@@ -34,7 +32,7 @@ public class RoleController {
 
         ResponseDto responseDto = new ResponseDto();
 
-        RoleService.list(pageDto);
+        roleService.list(pageDto);
 
         responseDto.setContent(pageDto);
         return responseDto;
@@ -52,7 +50,7 @@ public class RoleController {
 
 
         ResponseDto responseDto = new ResponseDto();
-        RoleService.save(roleDto);
+        roleService.save(roleDto);
         responseDto.setContent(roleDto);
         return responseDto;
     }
@@ -60,9 +58,22 @@ public class RoleController {
     @DeleteMapping("/delete/{id}")
     public ResponseDto delete(@PathVariable String id){
         ResponseDto responseDto = new ResponseDto();
-        RoleService.delete(id);
+        roleService.delete(id);
 //        responseDto.setContent(roleDto);
         return responseDto;
     }
+    /**
+     * 保存资源
+     * @param roleDto
+     */
+    @PostMapping("/save-resource")
+    public ResponseDto saveResource(@RequestBody RoleDto roleDto) {
+        LOG.info("保存角色资源关联开始");
+        ResponseDto<RoleDto> responseDto = new ResponseDto<>();
+        roleService.saveResource(roleDto);
+        responseDto.setContent(roleDto);
+        return responseDto;
+    }
+
 
 }

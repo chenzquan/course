@@ -10,6 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/admin/resource")
@@ -21,6 +24,10 @@ public class ResourceController {
     private static final Logger LOG = LoggerFactory.getLogger(ResourceController.class);
 
     public static final String BUSINESS_NAME = "资源";
+
+
+    @Resource
+    private ResourceService resourceService;
 
 
     @PostMapping("/list")
@@ -56,6 +63,18 @@ public class ResourceController {
         ResponseDto responseDto = new ResponseDto();
         ResourceService.delete(id);
 //        responseDto.setContent(resourceDto);
+        return responseDto;
+    }
+
+
+    /**
+     * 资源树查询
+     */
+    @GetMapping("/load-tree")
+    public ResponseDto loadTree() {
+        ResponseDto responseDto = new ResponseDto();
+        List<ResourceDto> resourceDtoList = resourceService.loadTree();
+        responseDto.setContent(resourceDtoList);
         return responseDto;
     }
 
