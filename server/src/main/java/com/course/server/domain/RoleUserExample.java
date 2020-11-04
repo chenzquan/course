@@ -3,14 +3,14 @@ package com.course.server.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class roleUserExample {
+public class RoleUserExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public roleUserExample() {
+    public RoleUserExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 

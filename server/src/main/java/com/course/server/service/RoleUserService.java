@@ -1,11 +1,11 @@
 package com.course.server.service;
 
-import com.course.server.domain.roleUser;
-import com.course.server.domain.roleUserExample;
+import com.course.server.domain.RoleUser;
+import com.course.server.domain.RoleUserExample;
 
-import com.course.server.dto.roleUserDto;
+import com.course.server.dto.RoleUserDto;
 import com.course.server.dto.PageDto;
-import com.course.server.mapper.roleUserMapper;
+import com.course.server.mapper.RoleUserMapper;
 import com.course.server.util.CopyUtil;
 import com.course.server.util.UuidUtil;
 import com.github.pagehelper.PageHelper;
@@ -21,25 +21,25 @@ import java.util.List;
 
 
 @Service
-public class roleUserService {
+public class RoleUserService {
 
     @Resource
-    private roleUserMapper roleUserMapper;
+    private RoleUserMapper roleUserMapper;
 
     public void list(PageDto pageDto){
 
         PageHelper.startPage(pageDto.getPage(),pageDto.getSize()); //对遇到第一个 sql 语句 进行分页
-        roleUserExample roleUserExample = new roleUserExample();
-        List<roleUser> roleUserList = roleUserMapper.selectByExample(roleUserExample);
+        RoleUserExample roleUserExample = new RoleUserExample();
+        List<RoleUser> roleUserList = roleUserMapper.selectByExample(roleUserExample);
 
-        PageInfo<roleUser> pageInfo = new PageInfo<>(roleUserList);
+        PageInfo<RoleUser> pageInfo = new PageInfo<>(roleUserList);
         pageDto.setTotal(pageInfo.getTotal());
 
-        List<roleUserDto> roleUserDtoList = new ArrayList<>();
+        List<RoleUserDto> roleUserDtoList = new ArrayList<>();
         for (int i = 0,l=roleUserList.size(); i < l; i++) {
-            roleUser roleUser = roleUserList.get(i);
+            RoleUser roleUser = roleUserList.get(i);
 
-            roleUserDto roleUserDto = new roleUserDto();
+            RoleUserDto roleUserDto = new RoleUserDto();
             BeanUtils.copyProperties(roleUser,roleUserDto);
 
             roleUserDtoList.add(roleUserDto);
@@ -53,13 +53,13 @@ public class roleUserService {
     /**
      * 列表查询
      */
-    public void save(roleUserDto roleUserDto) {
+    public void save(RoleUserDto roleUserDto) {
 //        roleUserDto.setId(UuidUtil.getShortUuid());
-//        roleUser roleUser = new roleUser();
+//        RoleUser roleUser = new RoleUser();
 //        BeanUtils.copyProperties(roleUserDto,roleUser);
 //        roleUserMapper.insert(roleUser);
 
-        roleUser roleUser = CopyUtil.copy(roleUserDto,roleUser.class);
+        RoleUser roleUser = CopyUtil.copy(roleUserDto,RoleUser.class);
         if(StringUtils.isEmpty(roleUserDto.getId())){
             this.insert(roleUser);
         }else{
@@ -68,13 +68,13 @@ public class roleUserService {
 
     }
 
-    private void insert(roleUser roleUser){
+    private void insert(RoleUser roleUser){
         roleUser.setId(UuidUtil.getShortUuid());
         roleUserMapper.insert(roleUser);
     }
 
 
-    private void update(roleUser roleUser){
+    private void update(RoleUser roleUser){
 
         roleUserMapper.updateByPrimaryKey(roleUser);
     }

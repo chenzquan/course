@@ -69,7 +69,7 @@
 <!--        <table tableName="role" domainObjectName="Role"/>-->
 
 <!--        <table tableName="role_resource" domainObjectName="RoleResource"/>-->
-        <table tableName="role_user" domainObjectName="roleUser"/>
+        <table tableName="role_user" domainObjectName="RoleUser"/>
 
     </context>
 </generatorConfiguration>

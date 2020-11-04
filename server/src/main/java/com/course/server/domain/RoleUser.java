@@ -1,6 +1,6 @@
 package com.course.server.domain;
 
-public class roleUser {
+public class RoleUser {
     private String id;
 
     private String roleId;

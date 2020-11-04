@@ -1,12 +1,12 @@
 package com.course.system.controller.admin;
 
 
-import com.course.server.domain.roleUser;
+import com.course.server.domain.RoleUser;
 
-import com.course.server.dto.roleUserDto;
+import com.course.server.dto.RoleUserDto;
 import com.course.server.dto.PageDto;
 import com.course.server.dto.ResponseDto;
-import com.course.server.service.roleUserService;
+import com.course.server.service.RoleUserService;
 
 import com.course.server.util.ValidatorUtil;
 import org.slf4j.Logger;
@@ -19,12 +19,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/admin/roleUser")
-public class roleUserController {
+public class RoleUserController {
 
     @Resource
-    private roleUserService roleUserService;
+    private RoleUserService RoleUserService;
 
-    private static final Logger LOG = LoggerFactory.getLogger(roleUserController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RoleUserController.class);
 
     public static final String BUSINESS_NAME = "角色用户关联";
 
@@ -34,14 +34,14 @@ public class roleUserController {
 
         ResponseDto responseDto = new ResponseDto();
 
-        roleUserService.list(pageDto);
+        RoleUserService.list(pageDto);
 
         responseDto.setContent(pageDto);
         return responseDto;
     }
 
     @PostMapping("/save")
-    public ResponseDto save(@RequestBody roleUserDto roleUserDto){
+    public ResponseDto save(@RequestBody RoleUserDto roleUserDto){
 
         // 保存校验
 
@@ -50,7 +50,7 @@ public class roleUserController {
 
 
         ResponseDto responseDto = new ResponseDto();
-        roleUserService.save(roleUserDto);
+        RoleUserService.save(roleUserDto);
         responseDto.setContent(roleUserDto);
         return responseDto;
     }
@@ -58,7 +58,7 @@ public class roleUserController {
     @DeleteMapping("/delete/{id}")
     public ResponseDto delete(@PathVariable String id){
         ResponseDto responseDto = new ResponseDto();
-        roleUserService.delete(id);
+        RoleUserService.delete(id);
 //        responseDto.setContent(roleUserDto);
         return responseDto;
     }

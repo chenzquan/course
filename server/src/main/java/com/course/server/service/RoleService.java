@@ -1,14 +1,11 @@
 package com.course.server.service;
 
-import com.course.server.domain.Role;
-import com.course.server.domain.RoleExample;
-
-import com.course.server.domain.RoleResource;
-import com.course.server.domain.RoleResourceExample;
-import com.course.server.dto.RoleDto;
+import com.course.server.domain.*;
 import com.course.server.dto.PageDto;
+import com.course.server.dto.RoleDto;
 import com.course.server.mapper.RoleMapper;
 import com.course.server.mapper.RoleResourceMapper;
+import com.course.server.mapper.RoleUserMapper;
 import com.course.server.util.CopyUtil;
 import com.course.server.util.UuidUtil;
 import com.github.pagehelper.PageHelper;
@@ -31,6 +28,9 @@ public class RoleService {
 
     @Resource
     private RoleResourceMapper roleResourceMapper;
+
+    @Resource
+    private RoleUserMapper roleUserMapper;
 
     public void list(PageDto pageDto){
 
@@ -126,6 +126,21 @@ public class RoleService {
             resourceIdList.add(roleResourceList.get(i).getResourceId());
         }
         return resourceIdList;
+    }
+
+    /**
+     * 按角色加载用户
+     * @param roleId
+     */
+    public List<String> listUser(String roleId) {
+        RoleUserExample example = new RoleUserExample();
+        example.createCriteria().andRoleIdEqualTo(roleId);
+        List<RoleUser> roleUserList = roleUserMapper.selectByExample(example);
+        List<String> userIdList = new ArrayList<>();
+        for (int i = 0, l = roleUserList.size(); i < l; i++) {
+            userIdList.add(roleUserList.get(i).getUserId());
+        }
+        return userIdList;
     }
 
 

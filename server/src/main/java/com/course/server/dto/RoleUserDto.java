@@ -3,7 +3,7 @@ package com.course.server.dto;
 
 
 
-public class roleUserDto{
+public class RoleUserDto{
 
         /**
          *  id
