@@ -369,7 +369,7 @@
                         <b class="arrow"></b>
                     </li>
 
-                    <li class="active open">
+                    <li v-show="hasResource('01')" class="active open">
                         <a href="#" class="dropdown-toggle">
                             <i class="menu-icon fa fa-desktop"></i>
                             <span class="menu-text">
@@ -382,14 +382,14 @@
                         <b class="arrow"></b>
 
                         <ul class="submenu">
-                            <li class="" id="system-user-sidebar">
+                            <li v-show="hasResource('0101')" class="" id="system-user-sidebar">
                                 <router-link to="/system/user" class="dropdown-toggle">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     用户管理
                                 </router-link>
                             </li>
 
-                            <li class="">
+                            <li v-show="hasResource('0102')" class="">
                                 <router-link to="/system/resource" id="system-resource-sidebar">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                    资源管理
@@ -399,7 +399,7 @@
                             </li>
 
 
-                            <li class="">
+                            <li v-show="hasResource('0103')" class="">
                                 <router-link to="/system/role" id="system-role-sidebar">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     角色管理
@@ -590,6 +590,12 @@
         },
 
         methods:{
+
+            hasResource(id){
+                return Tool.hasResource(id);
+            },
+
+
             login(){
                 this.$router.push("/");
             },

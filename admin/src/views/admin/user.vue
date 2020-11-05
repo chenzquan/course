@@ -2,7 +2,7 @@
     <div>
         <p>
 
-            <button @click="add()" class="btn btn-white btn-default btn-round">
+            <button v-show="hasResource('010101')" @click="add()" class="btn btn-white btn-default btn-round">
                 <i class="ace-icon fa fa-edit"></i>新增
             </button>
             &nbsp;
@@ -44,15 +44,15 @@
                     <!--                            <i class="ace-icon fa fa-check bigger-120"></i>-->
                     <!--                        </button>-->
 
-                    <button class="btn btn-xs btn-info" @click="edit(user)">
+                    <button v-show="hasResource('010103')" class="btn btn-xs btn-info" @click="edit(user)">
                         <i class="ace-icon fa fa-pencil bigger-120"></i>
                     </button>
 
-                    <button class="btn btn-xs btn-info" @click="editPassword(user)">
+                    <button v-show="hasResource('010101')" class="btn btn-xs btn-info" @click="editPassword(user)">
                         <i class="ace-icon fa fa-key bigger-120"></i>
                     </button>
 
-                    <button class="btn btn-xs btn-danger" @click="deleteData(user.id)">
+                    <button v-show="hasResource('010102')" class="btn btn-xs btn-danger" @click="deleteData(user.id)">
                         <i class="ace-icon fa fa-trash-o bigger-120"></i>
                     </button>
 
@@ -214,6 +214,12 @@
 
 
         methods: {
+
+            hasResource(id){
+                return Tool.hasResource(id);
+            },
+
+
             list(page) {
                 let _this = this;
                 Loading.show();
