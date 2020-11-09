@@ -51,6 +51,18 @@ public class CourseService {
     @Resource
     private TeacherService teacherService;
 
+    /**
+     * 列表查询：关联课程分类表
+     * @param pageDto
+     */
+    public void list(CoursePageDto pageDto) {
+        PageHelper.startPage(pageDto.getPage(), pageDto.getSize());
+        List<CourseDto> courseDtoList = myCourseMapper.list(pageDto);
+        PageInfo<CourseDto> pageInfo = new PageInfo<>(courseDtoList);
+        pageDto.setTotal(pageInfo.getTotal());
+        pageDto.setList(courseDtoList);
+    }
+
     public void list(PageDto pageDto){
 
         PageHelper.startPage(pageDto.getPage(),pageDto.getSize()); //对遇到第一个 sql 语句 进行分页

@@ -31,7 +31,7 @@ axios.interceptors.response.use(function (response) {
 }, error => {});
 
 
-// 全局过滤器
+// 全局过滤器  是为了 做枚举
 Object.keys(filter).forEach(key => {
   Vue.filter(key, filter[key])
 });

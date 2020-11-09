@@ -3,6 +3,8 @@ import Router from 'vue-router'
 
 import Index from './views/index.vue'
 
+import List from './views/list'
+
 Vue.use(Router);
 
 //路由 子路由
@@ -15,6 +17,9 @@ export default new Router({
     },{
         path: "/index",
         component:Index
+    },{
+        path: "/list",
+        component:List
     }]
 })
 
