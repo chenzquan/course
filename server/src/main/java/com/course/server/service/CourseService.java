@@ -51,6 +51,9 @@ public class CourseService {
     @Resource
     private TeacherService teacherService;
 
+    @Resource
+    private SectionService sectionService;
+
     /**
      * 列表查询：关联课程分类表
      * @param pageDto
@@ -212,17 +215,17 @@ public class CourseService {
             courseDto.setContent(content.getContent());
         }
 
-        // 查找讲师信息
-//        TeacherDto teacherDto = teacherService.findById(courseDto.getTeacherId());
-//        courseDto.setTeacher(teacherDto);
-//
-//        // 查找章信息
-//        List<ChapterDto> chapterDtoList = chapterService.listByCourse(id);
-//        courseDto.setChapters(chapterDtoList);
-//
-//        // 查找节信息
-//        List<SectionDto> sectionDtoList = sectionService.listByCourse(id);
-//        courseDto.setSections(sectionDtoList);
+         //查找讲师信息
+        TeacherDto teacherDto = teacherService.findById(courseDto.getTeacherId());
+        courseDto.setTeacher(teacherDto);
+
+        // 查找章信息
+        List<ChapterDto> chapterDtoList = chapterService.listByCourse(id);
+        courseDto.setChapters(chapterDtoList);
+
+        // 查找节信息
+        List<SectionDto> sectionDtoList = sectionService.listByCourse(id);
+        courseDto.setSections(sectionDtoList);
 
         return courseDto;
     }

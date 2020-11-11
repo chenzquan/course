@@ -284,3 +284,19 @@ create table `role_user`(
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 comment='角色用户关联';
 
 insert into `role_user` values ('00000000','00000000','10000000');
+
+
+
+drop table if exists `member`;
+create table `member`(
+     `id` char (8) not null default '' comment 'id',
+     `mobile` varchar (11) comment '手机号',
+     `password` char (32) not null comment '密码',
+     `name` varchar (50) comment '呢称',
+     `photo` varchar (200) comment '头像url',
+     `register_time` datetime(3) comment '注册时间',
+      primary key (`id`),
+      unique key `mobile_unique` (`mobile`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 comment='会员';
+
+insert into `member` values ('00000000','1325467892','151515151','515154','5454',now());

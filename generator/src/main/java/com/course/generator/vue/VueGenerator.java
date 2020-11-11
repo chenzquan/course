@@ -21,7 +21,7 @@ import java.io.File;
 import java.util.*;
 
 public class VueGenerator {
-    static String MODULE = "system";
+    static String MODULE = "business";
     static String toVuePath = "admin\\src\\views\\admin\\";
 //    static String toServicePath = "server\\src\\main\\java\\com\\course\\server\\service\\";
 //    static String toControllerPath = MODULE + "\\src\\main\\java\\com\\course\\" + MODULE + "\\controller\\admin\\";

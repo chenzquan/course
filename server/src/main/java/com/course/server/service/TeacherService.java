@@ -90,5 +90,14 @@ public class TeacherService {
         return teacherDtoList;
     }
 
+    /**
+     * 查找
+     * @param id
+     */
+    public TeacherDto findById(String id) {
+        Teacher teacher = teacherMapper.selectByPrimaryKey(id);
+        return CopyUtil.copy(teacher, TeacherDto.class);
+    }
+
 
 }
