@@ -227,17 +227,15 @@ create table `resource`(
     primary key (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 comment='资源';
 
+insert into `resource` (id,name,page,request,parent) values ('00','欢迎',null,null,null);
 insert into `resource` (id,name,page,request,parent) values ('01','系统管理',null,null,null);
-insert into `resource` (id,name,page,request,parent) values ('0101','用户管理','/system/user',null,'01');
+insert into `resource` (id,name,page,request,parent) values ('0101','用户管理','system/user',null,'01');
 insert into `resource` (id,name,page,request,parent) values ('010101','保存',null,'["/system/admin/user/list","/system/admin/user/save"]','0101');
 insert into `resource` (id,name,page,request,parent) values ('010102','删除',null,'["/system/admin/user/delete"]','0101');
-
 insert into `resource` (id,name,page,request,parent) values ('010103','重置密码',null,'["/system/admin/user/save-password"]','0101');
-insert into `resource` (id,name,page,request,parent) values ('0102','资源管理','/system/respirce',null,'01');
-
-
+insert into `resource` (id,name,page,request,parent) values ('0102','资源管理','system/respirce',null,'01');
 insert into `resource` (id,name,page,request,parent) values ('010201','保存/显示',null,'["/system/admin/resource"]','0102');
-insert into `resource` (id,name,page,request,parent) values ('0103','角色管理','/system/role',null,'01');
+insert into `resource` (id,name,page,request,parent) values ('0103','角色管理','system/role',null,'01');
 insert into `resource` (id,name,page,request,parent) values ('010301','角色/权限管理',null,'["/system/admin/role"]','0103');
 
 
@@ -273,6 +271,7 @@ insert into `role_resource` values('00000005','00000000','0102');
 insert into `role_resource` values('00000006','00000000','010201');
 insert into `role_resource` values('00000007','00000000','0103');
 insert into `role_resource` values('00000008','00000000','010301');
+insert into `role_resource` values('00000009','00000000','00');
 
 
 drop table if exists `role_user`;
